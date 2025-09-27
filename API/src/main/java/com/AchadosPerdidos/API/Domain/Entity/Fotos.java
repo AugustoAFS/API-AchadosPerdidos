@@ -1,26 +1,33 @@
 package com.AchadosPerdidos.API.Domain.Entity;
 
 import com.AchadosPerdidos.API.Domain.Enum.Provedor_Armazenamento;
-
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import java.util.Date;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Fotos {
-    public int Id_Foto;
-    public Integer Usuario_Id;
-    public Integer Item_Id;
-    public Provedor_Armazenamento Provedor_Armazenamento;
-    public String Nome_Bucket;
-    public String Chave_Objeto;
-    public String Chave_Armazenamento;
-    public String Url_Arquivo;
-    public String Nome_Original;
-    public Long Tamanho_Bytes;
-    public Integer Largura;
-    public Integer Altura;
-    public Boolean Perfil_Usuario;
-    public Boolean Foto_Item;
-    public Boolean Flg_Inativo;
-    public Date Data_Envio;
-    public Date Data_Exclusao;
-    public Date Data_Atualizacao;
+    private int Id_Foto;
+    private Integer Usuario_Id;
+    private Integer Item_Id;
+    private Provedor_Armazenamento Provedor_Armazenamento;
+    private String Nome_Bucket;
+    private String Chave_Objeto;
+    private String Chave_Armazenamento;
+    private String Url_Arquivo;
+    private String Nome_Original;
+    private Long Tamanho_Bytes;
+    private Integer Largura;
+    private Integer Altura;
+    private Boolean Perfil_Usuario;
+    private Boolean Foto_Item;
+    private Boolean Flg_Inativo;
+    private Date Data_Envio;
+    private Date Data_Exclusao;
+    private Date Data_Atualizacao;
 }

@@ -2,12 +2,16 @@ package com.AchadosPerdidos.API.Presentation.Controller;
 
 import com.AchadosPerdidos.API.Application.Services.ChatService;
 import com.AchadosPerdidos.API.Domain.Entity.Chat.ChatMessage;
+import com.AchadosPerdidos.API.Domain.Enum.TipoMenssagem;
+import com.AchadosPerdidos.API.Domain.Enum.Status_Menssagem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
+
+import java.time.LocalDateTime;
 
 @Controller
 public class ChatController {
@@ -26,6 +30,16 @@ public class ChatController {
         // Define um chatId padrão se não fornecido (para chat público)
         if (chatMessage.getChatId() == null) {
             chatMessage.setChatId("public");
+        }
+        
+        // Define timestamp se não fornecido
+        if (chatMessage.getTimestamp() == null) {
+            chatMessage.setTimestamp(LocalDateTime.now());
+        }
+        
+        // Define status se não fornecido
+        if (chatMessage.getStatus() == null) {
+            chatMessage.setStatus(Status_Menssagem.SENT);
         }
         
         // Salva a mensagem no MongoDB
@@ -51,6 +65,21 @@ public class ChatController {
             chatMessage.setChatId("public");
         }
         
+        // Define tipo de mensagem como JOIN se não especificado
+        if (chatMessage.getType() == null) {
+            chatMessage.setType(TipoMenssagem.JOIN);
+        }
+        
+        // Define timestamp se não fornecido
+        if (chatMessage.getTimestamp() == null) {
+            chatMessage.setTimestamp(LocalDateTime.now());
+        }
+        
+        // Define status se não fornecido
+        if (chatMessage.getStatus() == null) {
+            chatMessage.setStatus(Status_Menssagem.SENT);
+        }
+        
         // Salva a mensagem de JOIN no MongoDB
         ChatMessage savedMessage = chatService.saveMessage(chatMessage);
         
@@ -68,6 +97,21 @@ public class ChatController {
         // Define chatId padrão para chat público
         if (chatMessage.getChatId() == null) {
             chatMessage.setChatId("public");
+        }
+        
+        // Define tipo de mensagem como LEAVE se não especificado
+        if (chatMessage.getType() == null) {
+            chatMessage.setType(TipoMenssagem.LEAVE);
+        }
+        
+        // Define timestamp se não fornecido
+        if (chatMessage.getTimestamp() == null) {
+            chatMessage.setTimestamp(LocalDateTime.now());
+        }
+        
+        // Define status se não fornecido
+        if (chatMessage.getStatus() == null) {
+            chatMessage.setStatus(Status_Menssagem.SENT);
         }
         
         // Salva a mensagem de LEAVE no MongoDB

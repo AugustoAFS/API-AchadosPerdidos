@@ -1,15 +1,23 @@
 package com.AchadosPerdidos.API.Domain.Entity;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import java.util.Date;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Fotos_Versoes {
-    public int Id_Versao;
-    public int Id_Foto;
-    public String Nome_Bucket;
-    public String Chave_Objeto;
-    public String Url_Arquivo;
-    public Date Data_Versao;
-    public String Observacao;
+    private int Id_Versao;
+    private int Id_Foto;
+    private String Nome_Bucket;
+    private String Chave_Objeto;
+    private String Url_Arquivo;
+    private Date Data_Versao;
+    private String Observacao;
 }
 
 

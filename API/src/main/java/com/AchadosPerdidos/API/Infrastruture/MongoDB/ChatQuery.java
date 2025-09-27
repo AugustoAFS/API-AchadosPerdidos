@@ -3,6 +3,8 @@ package com.AchadosPerdidos.API.Infrastruture.MongoDB;
 import com.AchadosPerdidos.API.Domain.Entity.Chat.ChatMessage;
 import com.AchadosPerdidos.API.Domain.Repository.ChatMessageRepository;
 import com.AchadosPerdidos.API.Infrastruture.MongoDB.Interfaces.IChatQuery;
+import com.AchadosPerdidos.API.Domain.Enum.TipoMenssagem;
+import com.AchadosPerdidos.API.Domain.Enum.Status_Menssagem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -36,7 +38,7 @@ public class ChatQuery implements IChatQuery {
     
     @Override
     public List<ChatMessage> findUnreadMessages(String receiverId) {
-        return chatMessageRepository.findByReceiverIdAndStatusOrderByTimestampAsc(receiverId, ChatMessage.MessageStatus.SENT);
+        return chatMessageRepository.findByReceiverIdAndStatusOrderByTimestampAsc(receiverId, Status_Menssagem.SENT);
     }
     
     @Override
@@ -50,12 +52,12 @@ public class ChatQuery implements IChatQuery {
     }
     
     @Override
-    public List<ChatMessage> findMessagesByType(String chatId, ChatMessage.MessageType type) {
+    public List<ChatMessage> findMessagesByType(String chatId, TipoMenssagem type) {
         return chatMessageRepository.findByChatIdAndTypeOrderByTimestampAsc(chatId, type);
     }
     
     @Override
-    public List<ChatMessage> findMessagesByStatus(String receiverId, ChatMessage.MessageStatus status) {
+    public List<ChatMessage> findMessagesByStatus(String receiverId, Status_Menssagem status) {
         return chatMessageRepository.findByReceiverIdAndStatusOrderByTimestampAsc(receiverId, status);
     }
 }

@@ -1,6 +1,8 @@
 package com.AchadosPerdidos.API.Domain.Repository;
 
 import com.AchadosPerdidos.API.Domain.Entity.Chat.ChatMessage;
+import com.AchadosPerdidos.API.Domain.Enum.TipoMenssagem;
+import com.AchadosPerdidos.API.Domain.Enum.Status_Menssagem;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -19,7 +21,7 @@ public interface ChatMessageRepository extends MongoRepository<ChatMessage, Stri
     /**
      * Busca mensagens por chatId e tipo ordenadas por timestamp
      */
-    List<ChatMessage> findByChatIdAndTypeOrderByTimestampAsc(String chatId, ChatMessage.MessageType type);
+    List<ChatMessage> findByChatIdAndTypeOrderByTimestampAsc(String chatId, TipoMenssagem type);
 
     /**
      * Busca mensagens por senderId ordenadas por timestamp
@@ -51,7 +53,7 @@ public interface ChatMessageRepository extends MongoRepository<ChatMessage, Stri
     /**
      * Busca mensagens não lidas por receiverId
      */
-    List<ChatMessage> findByReceiverIdAndStatusOrderByTimestampAsc(String receiverId, ChatMessage.MessageStatus status);
+    List<ChatMessage> findByReceiverIdAndStatusOrderByTimestampAsc(String receiverId, Status_Menssagem status);
 
     /**
      * Busca as últimas N mensagens de um chat

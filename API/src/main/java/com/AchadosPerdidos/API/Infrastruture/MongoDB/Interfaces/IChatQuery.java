@@ -1,6 +1,8 @@
 package com.AchadosPerdidos.API.Infrastruture.MongoDB.Interfaces;
 
 import com.AchadosPerdidos.API.Domain.Entity.Chat.ChatMessage;
+import com.AchadosPerdidos.API.Domain.Enum.TipoMenssagem;
+import com.AchadosPerdidos.API.Domain.Enum.Status_Menssagem;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -29,8 +31,8 @@ public interface IChatQuery {
     long countMessagesByChat(String chatId);
     
     // Busca mensagens por tipo
-    List<ChatMessage> findMessagesByType(String chatId, ChatMessage.MessageType type);
+    List<ChatMessage> findMessagesByType(String chatId, TipoMenssagem type);
     
     // Busca mensagens por status
-    List<ChatMessage> findMessagesByStatus(String receiverId, ChatMessage.MessageStatus status);
+    List<ChatMessage> findMessagesByStatus(String receiverId, Status_Menssagem status);
 }

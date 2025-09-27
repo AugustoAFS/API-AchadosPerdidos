@@ -1,14 +1,22 @@
 package com.AchadosPerdidos.API.Domain.Entity;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import java.util.Date;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Instituicao {
-    public int Id_Instituicao;
-    public String Tipo_Instituicao;
-    public String Nome_Instituicao;
-    public String CNPJ_Filial;
-    public Boolean Flg_Inativo;
-    public Date Data_Cadastro;
+    private int Id_Instituicao;
+    private String Tipo_Instituicao;
+    private String Nome_Instituicao;
+    private String CNPJ_Filial;
+    private Boolean Flg_Inativo;
+    private Date Data_Cadastro;
 }
 
 
