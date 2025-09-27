@@ -5,7 +5,8 @@ import java.util.Date;
 public class Reivindicacoes {
     public int Id_Reivindicacao;
     public int Id_Item;
-    public int Id_Usuario_Post;
-    public int Id_Usuario_Proprietario;
+    public Integer Id_Usuario_Post;
+    public Integer Id_Usuario_Proprietario;
     public Date Data_Reivindicacao;
+    public String Observacao;
 }

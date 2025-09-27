@@ -1,25 +1,20 @@
 package com.AchadosPerdidos.API.Application.Mapper;
-
 import com.AchadosPerdidos.API.Application.DTOs.UsuariosDTO;
+import com.AchadosPerdidos.API.Application.DTOs.UsuariosListDTO;
 import com.AchadosPerdidos.API.Domain.Entity.Usuarios;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * Mapper usando ModelMapper - SIMPLES E EFICIENTE!
+ * Mapper para conversão entre Entity e DTOs
  * 
  * Vantagens:
- * - Configuração automática
- * - Mapeamento por convenção
- * - Fácil de usar
+ * - Mapeamento direto e eficiente
+ * - Controle total sobre a conversão
+ * - Fácil de manter e debugar
  * - Spring integrado
  */
 @Component
 public class UsuariosModelMapper {
-    
-    @Autowired
-    private ModelMapper modelMapper;
     
     /**
      * Converte Entity para DTO
@@ -29,24 +24,24 @@ public class UsuariosModelMapper {
             return null;
         }
         
-        UsuariosDTO dto = modelMapper.map(entity, UsuariosDTO.class);
-        
-        // Mapeamentos manuais para campos com nomes diferentes
-        dto.setIdUsuario(entity.Id_Usuario);
-        dto.setNomeUsuario(entity.Nome_Usuario);
-        dto.setCpfUsuario(entity.CPF_Usuario);
-        dto.setEmailUsuario(entity.Email_Usuario);
-        dto.setSenhaUsuario(entity.Senha_Usuario);
-        dto.setMatriculaUsuario(entity.Matricula_Usuario);
-        dto.setTelefoneUsuario(entity.Telefone_Usuario);
-        dto.setDataCadastro(entity.Data_Cadastro);
-        dto.setTipoRoleId(entity.Tipo_Role_Id);
-        dto.setFotoId(entity.Foto_Id);
-        dto.setFlgInativo(entity.Flg_Inativo);
-        dto.setInstituicaoPublicaId(entity.Instituicao_Publica_Id);
-        dto.setInstituicaoPrivadaId(entity.Instituicao_Privada_Id);
-        
-        return dto;
+        // Como UsuariosDTO é um record, usamos o construtor diretamente
+        return new UsuariosDTO(
+            entity.getId_Usuario(),
+            entity.getNome_Usuario(),
+            entity.getCPF_Usuario(),
+            entity.getEmail_Usuario(),
+            entity.getSenha_Usuario(),
+            entity.getMatricula_Usuario(),
+            entity.getTelefone_Usuario(),
+            entity.getTipo_Role_Id(),
+            entity.getFoto_item_id(),
+            entity.getFoto_perfil_usuario(),
+            entity.getFlg_Inativo(),
+            entity.getId_Instituicao(),
+            entity.getId_Empresa(),
+            entity.getId_Campus(),
+            entity.getData_Cadastro()
+        );
     }
     
     /**
@@ -57,23 +52,51 @@ public class UsuariosModelMapper {
             return null;
         }
         
-        Usuarios entity = modelMapper.map(dto, Usuarios.class);
+        Usuarios entity = new Usuarios();
         
-        // Mapeamentos manuais para campos com nomes diferentes
-        entity.Id_Usuario = dto.getIdUsuario();
-        entity.Nome_Usuario = dto.getNomeUsuario();
-        entity.CPF_Usuario = dto.getCpfUsuario();
-        entity.Email_Usuario = dto.getEmailUsuario();
-        entity.Senha_Usuario = dto.getSenhaUsuario();
-        entity.Matricula_Usuario = dto.getMatriculaUsuario();
-        entity.Telefone_Usuario = dto.getTelefoneUsuario();
-        entity.Data_Cadastro = dto.getDataCadastro();
-        entity.Tipo_Role_Id = dto.getTipoRoleId();
-        entity.Foto_Id = dto.getFotoId();
-        entity.Flg_Inativo = dto.getFlgInativo();
-        entity.Instituicao_Publica_Id = dto.getInstituicaoPublicaId();
-        entity.Instituicao_Privada_Id = dto.getInstituicaoPrivadaId();
+        // Mapeamento direto dos campos
+        entity.setId_Usuario(dto.Id_Usuario());
+        entity.setNome_Usuario(dto.Nome_Usuario());
+        entity.setCPF_Usuario(dto.CPF_Usuario());
+        entity.setEmail_Usuario(dto.Email_Usuario());
+        entity.setSenha_Usuario(dto.Senha_Usuario());
+        entity.setMatricula_Usuario(dto.Matricula_Usuario());
+        entity.setTelefone_Usuario(dto.Telefone_Usuario());
+        entity.setTipo_Role_Id(dto.Tipo_Role_Id());
+        entity.setFoto_item_id(dto.foto_item_id());
+        entity.setFoto_perfil_usuario(dto.foto_perfil_usuario());
+        entity.setFlg_Inativo(dto.Flg_Inativo());
+        entity.setId_Instituicao(dto.Id_Instituicao());
+        entity.setId_Empresa(dto.Id_Empresa());
+        entity.setId_Campus(dto.Id_Campus());
+        entity.setData_Cadastro(dto.Data_Cadastro());
         
         return entity;
+    }
+
+    /**
+     * Converte Entity para DTO de listagem (sem senha)
+     */
+    public UsuariosListDTO toListDTO(Usuarios entity) {
+        if (entity == null) {
+            return null;
+        }
+
+        UsuariosListDTO dto = new UsuariosListDTO();
+        dto.setIdUsuario(entity.getId_Usuario());
+        dto.setNomeUsuario(entity.getNome_Usuario());
+        dto.setCpfUsuario(entity.getCPF_Usuario());
+        dto.setEmailUsuario(entity.getEmail_Usuario());
+        dto.setMatriculaUsuario(entity.getMatricula_Usuario());
+        dto.setTelefoneUsuario(entity.getTelefone_Usuario());
+        dto.setTipoRoleId(entity.getTipo_Role_Id());
+        dto.setFotoId(entity.getFoto_item_id());
+        dto.setFotoPerfilUsuario(entity.getFoto_perfil_usuario());
+        dto.setFlgInativo(entity.getFlg_Inativo());
+        dto.setInstituicaoPublicaId(entity.getId_Instituicao());
+        dto.setInstituicaoPrivadaId(entity.getId_Empresa());
+        dto.setCampusId(entity.getId_Campus());
+        dto.setDataCadastro(entity.getData_Cadastro());
+        return dto;
     }
 }

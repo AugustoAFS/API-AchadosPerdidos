@@ -1,19 +1,23 @@
 package com.AchadosPerdidos.API.Domain.Entity;
 
+import lombok.Data;
 import java.util.Date;
 
+@Data
 public class Usuarios {
-    public int Id_Usuario;
-    public String Nome_Usuario;
-    public String CPF_Usuario;
-    public String Email_Usuario;
-    public String Senha_Usuario;
-    public String Matricula_Usuario;
-    public String Telefone_Usuario;
-    public Date Data_Cadastro;
-    public int Tipo_Role_Id;
-    public int Foto_Id;
-    public Boolean Flg_Inativo;
-    public int Instituicao_Publica_Id;
-    public int Instituicao_Privada_Id;
+    private int Id_Usuario;
+    private String Nome_Usuario;
+    private String CPF_Usuario;
+    private String Email_Usuario;
+    private String Senha_Usuario;
+    private String Matricula_Usuario;
+    private String Telefone_Usuario;
+    private Date Data_Cadastro;
+    private int Tipo_Role_Id;
+    private Boolean Flg_Inativo;
+    private Integer foto_item_id;
+    private Integer foto_perfil_usuario;
+    private Integer Id_Instituicao;
+    private Integer Id_Empresa;
+    private Integer Id_Campus;
 }
