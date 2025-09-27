@@ -3,7 +3,7 @@ package com.AchadosPerdidos.API.Infrastruture.MongoDB;
 import com.AchadosPerdidos.API.Domain.Entity.Chat.ChatMessage;
 import com.AchadosPerdidos.API.Domain.Repository.ChatMessageRepository;
 import com.AchadosPerdidos.API.Infrastruture.MongoDB.Interfaces.IChatQuery;
-import com.AchadosPerdidos.API.Domain.Enum.TipoMenssagem;
+import com.AchadosPerdidos.API.Domain.Enum.Tipo_Menssagem;
 import com.AchadosPerdidos.API.Domain.Enum.Status_Menssagem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,10 +11,6 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * Implementação das consultas MongoDB para a coleção ChatMessage
- * Centraliza as queries para facilitar manutenção e reutilização
- */
 @Component
 public class ChatQuery implements IChatQuery {
     
@@ -33,17 +29,17 @@ public class ChatQuery implements IChatQuery {
     
     @Override
     public List<ChatMessage> findMessagesByPeriod(String chatId, LocalDateTime startTime, LocalDateTime endTime) {
-        return chatMessageRepository.findByChatIdAndTimestampBetweenOrderByTimestampAsc(chatId, startTime, endTime);
+        return chatMessageRepository.findByChatIdAndTimestampBetween(chatId, startTime, endTime);
     }
     
     @Override
     public List<ChatMessage> findUnreadMessages(String receiverId) {
-        return chatMessageRepository.findByReceiverIdAndStatusOrderByTimestampAsc(receiverId, Status_Menssagem.SENT);
+        return chatMessageRepository.findByReceiverIdAndStatus(receiverId, Status_Menssagem.SENT);
     }
     
     @Override
     public List<ChatMessage> findRecentMessages(String chatId, int limit) {
-        return chatMessageRepository.findTopNByChatIdOrderByTimestampDesc(chatId, limit);
+        return chatMessageRepository.findTopNByChatId(chatId, limit);
     }
     
     @Override
@@ -52,12 +48,12 @@ public class ChatQuery implements IChatQuery {
     }
     
     @Override
-    public List<ChatMessage> findMessagesByType(String chatId, TipoMenssagem type) {
-        return chatMessageRepository.findByChatIdAndTypeOrderByTimestampAsc(chatId, type);
+    public List<ChatMessage> findMessagesByType(String chatId, Tipo_Menssagem type) {
+        return chatMessageRepository.findByChatIdAndTipoOrderByTimestampAsc(chatId, type);
     }
     
     @Override
     public List<ChatMessage> findMessagesByStatus(String receiverId, Status_Menssagem status) {
-        return chatMessageRepository.findByReceiverIdAndStatusOrderByTimestampAsc(receiverId, status);
+        return chatMessageRepository.findByReceiverIdAndStatus(receiverId, status);
     }
 }
