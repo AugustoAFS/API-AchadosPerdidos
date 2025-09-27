@@ -86,7 +86,7 @@ public class ChatService implements IChatService {
      */
     public void markMessagesAsDelivered(List<String> messageIds) {
         List<ChatMessage> messages = chatMessageRepository.findAllById(messageIds);
-        messages.forEach(message -> message.setStatus(ChatMessage.MessageStatus.DELIVERED));
+        messages.forEach(message -> message.setStatus(com.AchadosPerdidos.API.Domain.Enum.Status_Menssagem.DELIVERED));
         chatMessageRepository.saveAll(messages);
     }
 
@@ -96,7 +96,7 @@ public class ChatService implements IChatService {
      */
     public void markMessagesAsRead(List<String> messageIds) {
         List<ChatMessage> messages = chatMessageRepository.findAllById(messageIds);
-        messages.forEach(message -> message.setStatus(ChatMessage.MessageStatus.READ));
+        messages.forEach(message -> message.setStatus(com.AchadosPerdidos.API.Domain.Enum.Status_Menssagem.READ));
         chatMessageRepository.saveAll(messages);
     }
 
