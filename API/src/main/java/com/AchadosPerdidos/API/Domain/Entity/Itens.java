@@ -12,4 +12,6 @@ public class Itens {
     public int Status_Item_Id;
     public int Usuario_Id;
     public int Local_Id;
+    public Integer Campus_Id;
+    public Integer Id_Empresa;
 }
