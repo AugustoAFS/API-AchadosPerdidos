@@ -21,6 +21,11 @@ public interface IUsuariosService {
     UsuariosListDTO buscarPorId(int id);
     
     /**
+     * Buscar usuário por email
+     */
+    UsuariosListDTO buscarPorEmail(String email);
+    
+    /**
      * Listar todos os usuários
      */
     List<UsuariosListDTO> listarTodos();

@@ -22,6 +22,10 @@ public class UsuariosQueries implements IUsuariosQueries {
     private static final String SQL_SELECT_BY_ID = """
             SELECT * FROM Usuarios WHERE Id_Usuario = ?
             """;
+    
+    private static final String SQL_SELECT_BY_EMAIL = """
+            SELECT * FROM Usuarios WHERE Email_Usuario = ?
+            """;
 
     private static final String SQL_SELECT_ALL = """
             SELECT * FROM Usuarios ORDER BY Nome_Usuario
@@ -47,6 +51,11 @@ public class UsuariosQueries implements IUsuariosQueries {
     @Override
     public String getSelectById() {
         return SQL_SELECT_BY_ID;
+    }
+    
+    @Override
+    public String getSelectByEmail() {
+        return SQL_SELECT_BY_EMAIL;
     }
     
     @Override

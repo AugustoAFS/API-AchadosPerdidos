@@ -92,6 +92,12 @@ public class UsuariosRepository implements IUsuariosRepository {
         return usuarios.isEmpty() ? null : usuarios.get(0);
     }
     
+    @Override
+    public Usuarios buscarPorEmail(String email) {
+        List<Usuarios> usuarios = jdbcTemplate.query(usuariosQueries.getSelectByEmail(), usuarioRowMapper, email);
+        return usuarios.isEmpty() ? null : usuarios.get(0);
+    }
+    
     
     @Override
     public List<Usuarios> listarTodos() {

@@ -11,6 +11,7 @@ public interface IUsuariosQueries {
     
     // Busca por id e listagem
     String getSelectById();
+    String getSelectByEmail();
     String getSelectAll();
     
     // Atualização

@@ -22,6 +22,41 @@ public class UsuariosController {
     }
     
     /**
+     * Listar todos os usuários (endpoint público para debug)
+     * @return Lista de todos os usuários
+     */
+    @GetMapping("/debug/listar")
+    public ResponseEntity<List<UsuariosListDTO>> listarTodosUsuarios() {
+        try {
+            List<UsuariosListDTO> usuarios = usuariosService.listarTodos();
+            return ResponseEntity.ok(usuarios);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(null);
+        }
+    }
+    
+    /**
+     * Buscar usuário por email (endpoint público para debug)
+     * @param email Email do usuário
+     * @return Usuário encontrado ou null
+     */
+    @GetMapping("/debug/buscar-email/{email}")
+    public ResponseEntity<UsuariosListDTO> buscarPorEmail(@PathVariable String email) {
+        try {
+            UsuariosListDTO usuario = usuariosService.buscarPorEmail(email);
+            if (usuario != null) {
+                return ResponseEntity.ok(usuario);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(null);
+        }
+    }
+
+    /**
      * Criar novo usuário
      * @param dto Dados do usuário a ser criado
      * @return Usuário criado com ID gerado

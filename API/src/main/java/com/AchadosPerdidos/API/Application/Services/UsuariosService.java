@@ -48,6 +48,12 @@ public class UsuariosService implements IUsuariosService {
         return entity != null ? usuariosMapper.toListDTO(entity) : null;
     }
     
+    @Override
+    public UsuariosListDTO buscarPorEmail(String email) {
+        Usuarios entity = usuariosRepository.buscarPorEmail(email);
+        return entity != null ? usuariosMapper.toListDTO(entity) : null;
+    }
+    
     
     @Override
     public List<UsuariosListDTO> listarTodos() {

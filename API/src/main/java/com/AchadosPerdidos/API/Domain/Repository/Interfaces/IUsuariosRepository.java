@@ -24,6 +24,13 @@ public interface IUsuariosRepository {
     Usuarios buscarPorId(int id);
     
     /**
+     * Buscar usuário por email
+     * @param email - Email do usuário
+     * @return Usuário encontrado ou null
+     */
+    Usuarios buscarPorEmail(String email);
+    
+    /**
      * Listar todos os usuários
      * @return Lista de usuários
      */
