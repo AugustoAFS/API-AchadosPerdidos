@@ -21,7 +21,7 @@ import java.util.Map;
 @Service
 public class JwtTokenService implements IJwtTokenService {
     
-    private static final Logger logger = LoggerFactory.getLogger(JwtTokenService.class);
+    private static final Logger _log = LoggerFactory.getLogger(JwtTokenService.class);
     
     @Value("${jwt.secret-key}")
     private String secretKey;
@@ -57,12 +57,12 @@ public class JwtTokenService implements IJwtTokenService {
                 .expiration(expiry)
                 .signWith(key)
                 .compact();
-            
-            logger.info("Token JWT gerado com sucesso para o usuário: {}", email);
+
+            _log.info("Token JWT gerado com sucesso para o usuário: {}", email);
             return token;
             
         } catch (Exception e) {
-            logger.error("Erro ao gerar token JWT", e);
+            _log.error("Erro ao gerar token JWT", e);
             throw new RuntimeException("Erro ao gerar token JWT", e);
         }
     }
@@ -77,7 +77,7 @@ public class JwtTokenService implements IJwtTokenService {
                 .parseSignedClaims(token);
             return true;
         } catch (Exception e) {
-            logger.warn("Token JWT inválido: {}", e.getMessage());
+            _log.warn("Token JWT inválido: {}", e.getMessage());
             return false;
         }
     }
@@ -93,7 +93,7 @@ public class JwtTokenService implements IJwtTokenService {
                 .getPayload();
             return claims.get("email", String.class);
         } catch (Exception e) {
-            logger.error("Erro ao extrair email do token", e);
+            _log.error("Erro ao extrair email do token", e);
             return null;
         }
     }
@@ -109,7 +109,7 @@ public class JwtTokenService implements IJwtTokenService {
                 .getPayload();
             return claims.getSubject();
         } catch (Exception e) {
-            logger.error("Erro ao extrair ID do usuário do token", e);
+            _log.error("Erro ao extrair ID do usuário do token", e);
             return null;
         }
     }
@@ -125,7 +125,7 @@ public class JwtTokenService implements IJwtTokenService {
                 .getPayload();
             return claims.getExpiration().before(new Date());
         } catch (Exception e) {
-            logger.error("Erro ao verificar expiração do token", e);
+            _log.error("Erro ao verificar expiração do token", e);
             return true;
         }
     }

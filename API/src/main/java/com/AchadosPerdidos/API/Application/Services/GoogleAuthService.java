@@ -20,7 +20,7 @@ import java.nio.charset.StandardCharsets;
 @Service
 public class GoogleAuthService implements IGoogleAuthService {
     
-    private static final Logger logger = LoggerFactory.getLogger(GoogleAuthService.class);
+    private static final Logger _log = LoggerFactory.getLogger(GoogleAuthService.class);
     
     @Value("${google.auth.client-id}")
     private String Client_Id;
@@ -49,11 +49,11 @@ public class GoogleAuthService implements IGoogleAuthService {
                 "scope=openid%20email%20profile&" +
                 "access_type=offline&" +
                 "prompt=consent";
-            
-            logger.info("URL de autorização construída: {}", authUrl);
+
+            _log.info("URL de autorização construída: {}", authUrl);
             return authUrl;
         } catch (Exception e) {
-            logger.error("Erro ao construir URL de autorização", e);
+            _log.error("Erro ao construir URL de autorização", e);
             throw new RuntimeException("Erro ao construir URL de autorização", e);
         }
     }
@@ -61,16 +61,13 @@ public class GoogleAuthService implements IGoogleAuthService {
     @Override
     public GoogleUserDTO getUserInfoFromAuthorizationCode(String code) {
         try {
-            logger.info("Iniciando processo de obtenção de informações do usuário com código: {}", code);
-            
-            // 1. Trocar o código de autorização por um token de acesso
+            _log.info("Iniciando processo de obtenção de informações do usuário com código: {}", code);
             String accessToken = getAccessToken(code);
-            
-            // 2. Obter informações do usuário usando o token de acesso
+
             return getUserInfo(accessToken);
             
         } catch (Exception e) {
-            logger.error("Erro ao processar autenticação do Google", e);
+            _log.error("Erro ao processar autenticação do Google", e);
             throw new RuntimeException("Erro ao processar autenticação do Google", e);
         }
     }
@@ -90,12 +87,12 @@ public class GoogleAuthService implements IGoogleAuthService {
             body.add("grant_type", "authorization_code");
             
             HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(body, headers);
-            
-            logger.info("Enviando requisição de token para: {}", tokenUrl);
+
+            _log.info("Enviando requisição de token para: {}", tokenUrl);
             ResponseEntity<String> response = restTemplate.postForEntity(tokenUrl, request, String.class);
             
             if (!response.getStatusCode().is2xxSuccessful()) {
-                logger.error("Erro ao obter token. Status: {}, Conteúdo: {}", 
+                _log.error("Erro ao obter token. Status: {}, Conteúdo: {}",
                     response.getStatusCode(), response.getBody());
                 throw new RuntimeException("Erro ao obter token: " + response.getBody());
             }
@@ -104,15 +101,15 @@ public class GoogleAuthService implements IGoogleAuthService {
             String accessToken = jsonNode.get("access_token").asText();
             
             if (accessToken == null || accessToken.isEmpty()) {
-                logger.error("Token de acesso é nulo ou vazio");
+                _log.error("Token de acesso é nulo ou vazio");
                 throw new RuntimeException("Token de acesso inválido");
             }
-            
-            logger.info("Token de acesso obtido com sucesso");
+
+            _log.info("Token de acesso obtido com sucesso");
             return accessToken;
             
         } catch (Exception e) {
-            logger.error("Erro ao obter token de acesso", e);
+            _log.error("Erro ao obter token de acesso", e);
             throw new RuntimeException("Erro ao obter token de acesso", e);
         }
     }
@@ -125,13 +122,13 @@ public class GoogleAuthService implements IGoogleAuthService {
             headers.setBearerAuth(accessToken);
             
             HttpEntity<String> request = new HttpEntity<>(headers);
-            
-            logger.info("Enviando requisição de informações do usuário");
+
+            _log.info("Enviando requisição de informações do usuário");
             ResponseEntity<String> response = restTemplate.exchange(
                 userInfoUrl, HttpMethod.GET, request, String.class);
             
             if (!response.getStatusCode().is2xxSuccessful()) {
-                logger.error("Erro ao obter informações do usuário. Status: {}, Conteúdo: {}", 
+                _log.error("Erro ao obter informações do usuário. Status: {}, Conteúdo: {}",
                     response.getStatusCode(), response.getBody());
                 throw new RuntimeException("Erro ao obter informações do usuário: " + response.getBody());
             }
@@ -139,7 +136,7 @@ public class GoogleAuthService implements IGoogleAuthService {
             JsonNode userInfoJson = objectMapper.readTree(response.getBody());
             
             if (userInfoJson.isNull()) {
-                logger.error("Resposta de informações do usuário é nula");
+                _log.error("Resposta de informações do usuário é nula");
                 throw new RuntimeException("Não foi possível obter informações do usuário");
             }
             
@@ -152,12 +149,12 @@ public class GoogleAuthService implements IGoogleAuthService {
                 userInfoJson.get("family_name").asText(),
                 userInfoJson.get("verified_email").asBoolean()
             );
-            
-            logger.info("Informações do usuário obtidas com sucesso: {}", user.email());
+
+            _log.info("Informações do usuário obtidas com sucesso: {}", user.email());
             return user;
             
         } catch (Exception e) {
-            logger.error("Erro ao obter informações do usuário", e);
+            _log.error("Erro ao obter informações do usuário", e);
             throw new RuntimeException("Erro ao obter informações do usuário", e);
         }
     }

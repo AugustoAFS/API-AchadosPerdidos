@@ -12,10 +12,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Implementação do Service de Usuários
- * Contém as regras de negócio para operações com usuários
- */
 @Service
 public class UsuariosService implements IUsuariosService {
     

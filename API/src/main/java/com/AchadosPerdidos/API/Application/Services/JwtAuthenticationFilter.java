@@ -23,7 +23,7 @@ import java.util.List;
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
+    private static final Logger _log = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
 
     @Value("${jwt.secret-key}")
     private String secretKey;
@@ -50,12 +50,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         new UsernamePasswordAuthenticationToken(email, null, authorities);
                     
                     SecurityContextHolder.getContext().setAuthentication(authToken);
-                    
-                    logger.debug("Usuário autenticado: {} com role: {}", email, role);
+
+                    _log.debug("Usuário autenticado: {} com role: {}", email, role);
                 }
             }
         } catch (Exception e) {
-            logger.error("Erro na autenticação JWT", e);
+            _log.error("Erro na autenticação JWT", e);
             SecurityContextHolder.clearContext();
         }
         
@@ -81,7 +81,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             getClaimsFromToken(token);
             return true;
         } catch (Exception e) {
-            logger.warn("Token JWT inválido: {}", e.getMessage());
+            _log.warn("Token JWT inválido: {}", e.getMessage());
             return false;
         }
     }

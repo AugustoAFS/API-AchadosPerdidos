@@ -1,7 +1,6 @@
 package com.AchadosPerdidos.API.Application.Config;
 
 import com.AchadosPerdidos.API.Application.Services.JwtAuthenticationFilter;
-import com.AchadosPerdidos.API.Application.Services.JwtTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,8 +25,7 @@ import java.util.Arrays;
 public class SecurityConfig {
 
     @Autowired
-    private JwtTokenService jwtTokenService;
-
+    private JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -35,27 +33,26 @@ public class SecurityConfig {
             .csrf(AbstractHttpConfigurer::disable)
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            
-                   .authorizeHttpRequests(authz -> authz
-                       .requestMatchers(
-                           "/api/auth/**",
-                           "/api/public/**",
-                           "/api/google-auth/**",
-                           "/api/usuarios/debug/**",
-                           "/api/usuarios/criar",
-                           "/swagger-ui/**",
-                           "/v3/api-docs/**",
-                           "/swagger-ui.html",
-                           "/webjars/**",
-                           "/actuator/**",
-                           "/error"
-                       ).permitAll()
-                       .requestMatchers("/api/chat/**").authenticated()
-                       .requestMatchers("/api/usuarios/**").authenticated()
-                       .anyRequest().authenticated()
-                   )
+            .authorizeHttpRequests(authz -> authz
+                .requestMatchers(
+                    "/api/auth/**",
+                    "/api/public/**",
+                    "/api/google-auth/**",
+                    "/api/usuarios/debug/**",
+                    "/api/usuarios/criar",
+                    "/swagger-ui/**",
+                    "/v3/api-docs/**",
+                    "/swagger-ui.html",
+                    "/webjars/**",
+                    "/actuator/**",
+                    "/error"
+                ).permitAll()
+                .requestMatchers("/api/chat/**").authenticated()
+                .requestMatchers("/api/usuarios/**").authenticated()
+                .anyRequest().authenticated()
+            )
             .addFilterBefore(
-                new JwtAuthenticationFilter(),
+                jwtAuthenticationFilter,
                 UsernamePasswordAuthenticationFilter.class
             );
 
