@@ -1,82 +1,79 @@
 package com.AchadosPerdidos.API.Application.Mapper;
+
 import com.AchadosPerdidos.API.Application.DTOs.UsuariosDTO;
 import com.AchadosPerdidos.API.Application.DTOs.UsuariosListDTO;
 import com.AchadosPerdidos.API.Domain.Entity.Usuarios;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class UsuariosModelMapper {
-    
-    public UsuariosDTO toDTO(Usuarios entity) { 
-        if (entity == null) {
+
+    public UsuariosDTO toDTO(Usuarios usuarios) {
+        if (usuarios == null) {
             return null;
         }
         
-        return new UsuariosDTO(
-            entity.getId_Usuario(),
-            entity.getNome_Usuario(),
-            entity.getCPF_Usuario(),
-            entity.getEmail_Usuario(),
-            entity.getSenha_Usuario(),
-            entity.getMatricula_Usuario(),
-            entity.getTelefone_Usuario(),
-            entity.getTipo_Role_Id(),
-            entity.getFoto_item_id(),
-            entity.getFoto_perfil_usuario(),
-            entity.getFlg_Inativo(),
-            entity.getId_Instituicao(),
-            entity.getId_Empresa(),
-            entity.getId_Campus(),
-            entity.getData_Cadastro()
-        );
+        UsuariosDTO dto = new UsuariosDTO();
+        dto.setId_Usuario(usuarios.getId_Usuario());
+        dto.setNome_Usuario(usuarios.getNome_Usuario());
+        dto.setCPF_Usuario(usuarios.getCPF_Usuario());
+        dto.setEmail_Usuario(usuarios.getEmail_Usuario());
+        dto.setSenha_Usuario(usuarios.getSenha_Usuario());
+        dto.setMatricula_Usuario(usuarios.getMatricula_Usuario());
+        dto.setTelefone_Usuario(usuarios.getTelefone_Usuario());
+        dto.setData_Cadastro(usuarios.getData_Cadastro());
+        dto.setTipo_Role_Id(usuarios.getTipo_Role_Id());
+        dto.setFoto_item_id(usuarios.getFoto_item_id());
+        dto.setFoto_perfil_usuario(usuarios.getFoto_perfil_usuario());
+        dto.setFlg_Inativo(usuarios.getFlg_Inativo());
+        dto.setId_Instituicao(usuarios.getId_Instituicao());
+        dto.setId_Empresa(usuarios.getId_Empresa());
+        dto.setId_Campus(usuarios.getId_Campus());
+        
+        return dto;
     }
-    
+
     public Usuarios toEntity(UsuariosDTO dto) {
         if (dto == null) {
             return null;
         }
         
-        Usuarios entity = new Usuarios();
+        Usuarios usuarios = new Usuarios();
+        usuarios.setId_Usuario(dto.getId_Usuario());
+        usuarios.setNome_Usuario(dto.getNome_Usuario());
+        usuarios.setCPF_Usuario(dto.getCPF_Usuario());
+        usuarios.setEmail_Usuario(dto.getEmail_Usuario());
+        usuarios.setSenha_Usuario(dto.getSenha_Usuario());
+        usuarios.setMatricula_Usuario(dto.getMatricula_Usuario());
+        usuarios.setTelefone_Usuario(dto.getTelefone_Usuario());
+        usuarios.setData_Cadastro(dto.getData_Cadastro());
+        usuarios.setTipo_Role_Id(dto.getTipo_Role_Id());
+        usuarios.setFoto_item_id(dto.getFoto_item_id());
+        usuarios.setFoto_perfil_usuario(dto.getFoto_perfil_usuario());
+        usuarios.setFlg_Inativo(dto.getFlg_Inativo());
+        usuarios.setId_Instituicao(dto.getId_Instituicao());
+        usuarios.setId_Empresa(dto.getId_Empresa());
+        usuarios.setId_Campus(dto.getId_Campus());
         
-        entity.setId_Usuario(dto.Id_Usuario());
-        entity.setNome_Usuario(dto.Nome_Usuario());
-        entity.setCPF_Usuario(dto.CPF_Usuario());
-        entity.setEmail_Usuario(dto.Email_Usuario());
-        entity.setSenha_Usuario(dto.Senha_Usuario());
-        entity.setMatricula_Usuario(dto.Matricula_Usuario());
-        entity.setTelefone_Usuario(dto.Telefone_Usuario());
-        entity.setTipo_Role_Id(dto.Tipo_Role_Id());
-        entity.setFoto_item_id(dto.foto_item_id());
-        entity.setFoto_perfil_usuario(dto.foto_perfil_usuario());
-        entity.setFlg_Inativo(dto.Flg_Inativo());
-        entity.setId_Instituicao(dto.Id_Instituicao());
-        entity.setId_Empresa(dto.Id_Empresa());
-        entity.setId_Campus(dto.Id_Campus());
-        entity.setData_Cadastro(dto.Data_Cadastro());
-        
-        return entity;
+        return usuarios;
     }
 
-    public UsuariosListDTO toListDTO(Usuarios entity) {
-        if (entity == null) {
+    public UsuariosListDTO toListDTO(List<Usuarios> usuarios) {
+        if (usuarios == null) {
             return null;
         }
-
-        return new UsuariosListDTO(
-            entity.getId_Usuario(),
-            entity.getNome_Usuario(),
-            entity.getCPF_Usuario(),
-            entity.getEmail_Usuario(),
-            entity.getMatricula_Usuario(),
-            entity.getTelefone_Usuario(),
-            entity.getTipo_Role_Id(),
-            entity.getFoto_item_id(),
-            entity.getFoto_perfil_usuario(),
-            entity.getFlg_Inativo(),
-            entity.getId_Instituicao(),
-            entity.getId_Empresa(),
-            entity.getId_Campus(),
-            entity.getData_Cadastro()
-        );
+        
+        List<UsuariosDTO> dtoList = usuarios.stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+        
+        UsuariosListDTO listDTO = new UsuariosListDTO();
+        listDTO.setUsuarios(dtoList);
+        listDTO.setTotalCount(dtoList.size());
+        
+        return listDTO;
     }
 }
