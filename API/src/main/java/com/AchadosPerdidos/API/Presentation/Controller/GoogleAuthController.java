@@ -2,6 +2,7 @@ package com.AchadosPerdidos.API.Presentation.Controller;
 
 import com.AchadosPerdidos.API.Application.DTOs.AuthResponseDTO;
 import com.AchadosPerdidos.API.Application.DTOs.GoogleUserDTO;
+import com.AchadosPerdidos.API.Application.DTOs.UsuariosDTO;
 import com.AchadosPerdidos.API.Application.DTOs.UsuariosListDTO;
 import com.AchadosPerdidos.API.Application.Services.Interfaces.IGoogleAuthService;
 import com.AchadosPerdidos.API.Application.Services.Interfaces.IJwtTokenService;
@@ -81,7 +82,7 @@ public class GoogleAuthController {
             
             // Buscar usuário no banco de dados pelo email
             logger.info("Buscando usuário no MySQL com email: {}", googleUser.email());
-            UsuariosListDTO usuario = usuariosService.buscarPorEmail(googleUser.email());
+            UsuariosDTO usuario = usuariosService.getUsuarioByEmail(googleUser.email());
             if (usuario == null) {
                 logger.warn("Usuário não encontrado no banco de dados MySQL: {}", googleUser.email());
                 logger.info("Verifique se o usuário existe na tabela 'Usuarios' do MySQL");
@@ -90,29 +91,29 @@ public class GoogleAuthController {
             }
             
             // Verificar se o usuário está ativo
-            if (usuario.flgInativo()) {
-                logger.warn("Usuário inativo tentou fazer login: {}", usuario.emailUsuario());
+            if (usuario.getFlg_Inativo()) {
+                logger.warn("Usuário inativo tentou fazer login: {}", usuario.getEmail_Usuario());
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body("Usuário inativo");
             }
             
-            logger.info("Informações do usuário obtidas: {}", usuario.emailUsuario());
+            logger.info("Informações do usuário obtidas: {}", usuario.getEmail_Usuario());
             
             // Gerar token JWT com informações do usuário
             String token = jwtTokenService.generateToken(
-                usuario.emailUsuario(),
-                usuario.nomeUsuario(),
+                usuario.getEmail_Usuario(),
+                usuario.getNome_Usuario(),
                 "User", // TODO: Implementar busca de role do usuário
-                String.valueOf(usuario.idUsuario())
+                String.valueOf(usuario.getId_Usuario())
             );
             
-            logger.info("Token JWT gerado com sucesso para o usuário: {}", usuario.emailUsuario());
+            logger.info("Token JWT gerado com sucesso para o usuário: {}", usuario.getEmail_Usuario());
             
             // Criar resposta com token e informações do usuário
             AuthResponseDTO.UserInfoDTO userInfo = new AuthResponseDTO.UserInfoDTO(
-                usuario.idUsuario(),
-                usuario.nomeUsuario(),
-                usuario.emailUsuario(),
+                usuario.getId_Usuario(),
+                usuario.getNome_Usuario(),
+                usuario.getEmail_Usuario(),
                 "User" // TODO: Implementar busca de role do usuário
             );
             
