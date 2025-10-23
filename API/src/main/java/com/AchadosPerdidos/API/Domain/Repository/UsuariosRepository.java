@@ -2,7 +2,7 @@ package com.AchadosPerdidos.API.Domain.Repository;
 
 import com.AchadosPerdidos.API.Domain.Entity.Usuarios;
 import com.AchadosPerdidos.API.Domain.Repository.Interfaces.IUsuariosRepository;
-import com.AchadosPerdidos.API.Infrastruture.Mysql.UsuariosQueries;
+import com.AchadosPerdidos.API.Infrastruture.DataBase.UsuariosQueries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

@@ -1,7 +1,9 @@
 package com.AchadosPerdidos.API.Application.Services;
 
-import com.AchadosPerdidos.API.Application.DTOs.ItensDTO;
-import com.AchadosPerdidos.API.Application.DTOs.ItensListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Itens.ItensDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Itens.ItensListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Itens.ItensCreateDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Itens.ItensUpdateDTO;
 import com.AchadosPerdidos.API.Application.Mapper.ItensModelMapper;
 import com.AchadosPerdidos.API.Application.Services.Interfaces.IItensService;
 import com.AchadosPerdidos.API.Domain.Entity.Itens;
@@ -45,6 +47,22 @@ public class ItensService implements IItensService {
     }
 
     @Override
+    public ItensDTO createItemFromDTO(ItensCreateDTO createDTO) {
+        Itens itens = new Itens();
+        itens.setNome_Item(createDTO.getNome_Item());
+        itens.setDescricao_Item(createDTO.getDescricao_Item());
+        itens.setStatus_Item_Id(createDTO.getStatus_Item_Id());
+        itens.setLocal_Id(createDTO.getLocal_Id());
+        itens.setCampus_Id(createDTO.getCampus_Id());
+        itens.setData_Cadastro(new Date());
+        itens.setData_Hora_Item(new Date());
+        itens.setFlg_Inativo(false);
+        
+        Itens savedItens = itensRepository.save(itens);
+        return itensModelMapper.toDTO(savedItens);
+    }
+
+    @Override
     public ItensDTO updateItem(int id, ItensDTO itensDTO) {
         Itens existingItens = itensRepository.findById(id);
         if (existingItens == null) {
@@ -60,6 +78,37 @@ public class ItensService implements IItensService {
         existingItens.setLocal_Id(itensDTO.getLocal_Id());
         existingItens.setCampus_Id(itensDTO.getCampus_Id());
         existingItens.setId_Empresa(itensDTO.getId_Empresa());
+        
+        Itens updatedItens = itensRepository.save(existingItens);
+        return itensModelMapper.toDTO(updatedItens);
+    }
+
+    @Override
+    public ItensDTO updateItemFromDTO(int id, ItensUpdateDTO updateDTO) {
+        Itens existingItens = itensRepository.findById(id);
+        if (existingItens == null) {
+            return null;
+        }
+        
+        // Atualizar apenas os campos fornecidos
+        if (updateDTO.getNome_Item() != null) {
+            existingItens.setNome_Item(updateDTO.getNome_Item());
+        }
+        if (updateDTO.getDescricao_Item() != null) {
+            existingItens.setDescricao_Item(updateDTO.getDescricao_Item());
+        }
+        if (updateDTO.getFlg_Inativo() != null) {
+            existingItens.setFlg_Inativo(updateDTO.getFlg_Inativo());
+        }
+        if (updateDTO.getStatus_Item_Id() > 0) {
+            existingItens.setStatus_Item_Id(updateDTO.getStatus_Item_Id());
+        }
+        if (updateDTO.getLocal_Id() > 0) {
+            existingItens.setLocal_Id(updateDTO.getLocal_Id());
+        }
+        if (updateDTO.getCampus_Id() > 0) {
+            existingItens.setCampus_Id(updateDTO.getCampus_Id());
+        }
         
         Itens updatedItens = itensRepository.save(existingItens);
         return itensModelMapper.toDTO(updatedItens);

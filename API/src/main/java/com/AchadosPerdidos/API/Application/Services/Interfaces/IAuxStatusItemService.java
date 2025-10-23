@@ -1,7 +1,7 @@
 package com.AchadosPerdidos.API.Application.Services.Interfaces;
 
-import com.AchadosPerdidos.API.Application.DTOs.AuxStatusItemDTO;
-import com.AchadosPerdidos.API.Application.DTOs.AuxStatusItemListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Auxiliares.AuxStatusItemDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Auxiliares.AuxStatusItemListDTO;
 
 import java.util.List;
 

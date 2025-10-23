@@ -1,7 +1,7 @@
 package com.AchadosPerdidos.API.Application.Services.Interfaces;
 
-import com.AchadosPerdidos.API.Application.DTOs.ReivindicacoesDTO;
-import com.AchadosPerdidos.API.Application.DTOs.ReivindicacoesListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Reivindicacoes.ReivindicacoesDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Reivindicacoes.ReivindicacoesListDTO;
 
 public interface IReivindicacoesService {
     ReivindicacoesListDTO getAllReivindicacoes();

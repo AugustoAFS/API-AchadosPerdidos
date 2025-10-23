@@ -9,12 +9,9 @@ import org.springframework.security.oauth2.client.registration.InMemoryClientReg
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.oidc.IdTokenClaimNames;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Configuration
 public class GoogleOAuthConfig {
-    private static final Logger _log = LoggerFactory.getLogger(GoogleOAuthConfig.class);
 
     @Value("${google.auth.client-id}")
     private String Client_Id;

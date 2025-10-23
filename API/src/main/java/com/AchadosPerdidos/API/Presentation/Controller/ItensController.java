@@ -1,7 +1,9 @@
 package com.AchadosPerdidos.API.Presentation.Controller;
 
-import com.AchadosPerdidos.API.Application.DTOs.ItensDTO;
-import com.AchadosPerdidos.API.Application.DTOs.ItensListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Itens.ItensDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Itens.ItensListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Itens.ItensCreateDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Itens.ItensUpdateDTO;
 import com.AchadosPerdidos.API.Application.Services.Interfaces.IItensService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,14 +35,14 @@ public class ItensController {
     }
 
     @PostMapping
-    public ResponseEntity<ItensDTO> createItem(@RequestBody ItensDTO itensDTO) {
-        ItensDTO createdItem = itensService.createItem(itensDTO);
+    public ResponseEntity<ItensDTO> createItem(@RequestBody ItensCreateDTO itensCreateDTO) {
+        ItensDTO createdItem = itensService.createItemFromDTO(itensCreateDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdItem);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ItensDTO> updateItem(@PathVariable int id, @RequestBody ItensDTO itensDTO) {
-        ItensDTO updatedItem = itensService.updateItem(id, itensDTO);
+    public ResponseEntity<ItensDTO> updateItem(@PathVariable int id, @RequestBody ItensUpdateDTO itensUpdateDTO) {
+        ItensDTO updatedItem = itensService.updateItemFromDTO(id, itensUpdateDTO);
         if (updatedItem != null) {
             return ResponseEntity.ok(updatedItem);
         } else {

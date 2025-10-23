@@ -2,7 +2,7 @@ package com.AchadosPerdidos.API.Domain.Repository;
 
 import com.AchadosPerdidos.API.Domain.Entity.Aux_Local_Item;
 import com.AchadosPerdidos.API.Domain.Repository.Interfaces.IAuxLocalItemRepository;
-import com.AchadosPerdidos.API.Infrastruture.Mysql.Interfaces.IAuxLocalItemQueries;
+import com.AchadosPerdidos.API.Infrastruture.DataBase.Interfaces.IAuxLocalItemQueries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -11,8 +11,6 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
@@ -25,7 +23,7 @@ public class AuxLocalItemRepository implements IAuxLocalItemRepository {
     @Autowired
     private IAuxLocalItemQueries auxLocalItemQueries;
     
-    private final RowMapper<Aux_Local_Item> auxLocalItemRowMapper = (rs, rowNum) -> {
+    private final RowMapper<Aux_Local_Item> auxLocalItemRowMapper = (rs, _) -> {
         Aux_Local_Item auxLocalItem = new Aux_Local_Item();
         auxLocalItem.setId_Aux_Local_Item(rs.getInt("Id_Aux_Local_Item"));
         auxLocalItem.setNome_Local_Item(rs.getString("Nome_Local_Item"));

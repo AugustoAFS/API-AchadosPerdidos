@@ -2,7 +2,7 @@ package com.AchadosPerdidos.API.Domain.Repository;
 
 import com.AchadosPerdidos.API.Domain.Entity.Aux_Status_Item;
 import com.AchadosPerdidos.API.Domain.Repository.Interfaces.IAuxStatusItemRepository;
-import com.AchadosPerdidos.API.Infrastruture.Mysql.Interfaces.IAuxStatusItemQueries;
+import com.AchadosPerdidos.API.Infrastruture.DataBase.Interfaces.IAuxStatusItemQueries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -18,12 +18,12 @@ import java.util.List;
 public class AuxStatusItemRepository implements IAuxStatusItemRepository {
     
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;  
     
     @Autowired
     private IAuxStatusItemQueries auxStatusItemQueries;
     
-    private final RowMapper<Aux_Status_Item> auxStatusItemRowMapper = (rs, rowNum) -> {
+    private final RowMapper<Aux_Status_Item> auxStatusItemRowMapper = (rs, _) -> {
         Aux_Status_Item auxStatusItem = new Aux_Status_Item();
         auxStatusItem.setId_Status_Item(rs.getInt("Id_Status_Item"));
         auxStatusItem.setDescricao_Status_Item(rs.getString("Descricao_Status_Item"));

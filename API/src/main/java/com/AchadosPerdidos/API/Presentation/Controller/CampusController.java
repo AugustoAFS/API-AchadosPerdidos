@@ -1,7 +1,9 @@
 package com.AchadosPerdidos.API.Presentation.Controller;
 
-import com.AchadosPerdidos.API.Application.DTOs.CampusDTO;
-import com.AchadosPerdidos.API.Application.DTOs.CampusListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Campus.CampusDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Campus.CampusListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Campus.CampusCreateDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Campus.CampusUpdateDTO;
 import com.AchadosPerdidos.API.Application.Services.Interfaces.ICampusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,14 +35,14 @@ public class CampusController {
     }
 
     @PostMapping
-    public ResponseEntity<CampusDTO> createCampus(@RequestBody CampusDTO campusDTO) {
-        CampusDTO createdCampus = campusService.createCampus(campusDTO);
+    public ResponseEntity<CampusDTO> createCampus(@RequestBody CampusCreateDTO campusCreateDTO) {
+        CampusDTO createdCampus = campusService.createCampusFromDTO(campusCreateDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCampus);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CampusDTO> updateCampus(@PathVariable int id, @RequestBody CampusDTO campusDTO) {
-        CampusDTO updatedCampus = campusService.updateCampus(id, campusDTO);
+    public ResponseEntity<CampusDTO> updateCampus(@PathVariable int id, @RequestBody CampusUpdateDTO campusUpdateDTO) {
+        CampusDTO updatedCampus = campusService.updateCampusFromDTO(id, campusUpdateDTO);
         if (updatedCampus != null) {
             return ResponseEntity.ok(updatedCampus);
         } else {

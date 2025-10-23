@@ -1,7 +1,9 @@
 package com.AchadosPerdidos.API.Application.Services;
 
-import com.AchadosPerdidos.API.Application.DTOs.InstituicaoDTO;
-import com.AchadosPerdidos.API.Application.DTOs.InstituicaoListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Instituicao.InstituicaoDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Instituicao.InstituicaoListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Instituicao.InstituicaoCreateDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Instituicao.InstituicaoUpdateDTO;
 import com.AchadosPerdidos.API.Application.Mapper.InstituicaoModelMapper;
 import com.AchadosPerdidos.API.Application.Services.Interfaces.IInstituicaoService;
 import com.AchadosPerdidos.API.Domain.Entity.Instituicao;
@@ -44,6 +46,19 @@ public class InstituicaoService implements IInstituicaoService {
     }
 
     @Override
+    public InstituicaoDTO createInstituicaoFromDTO(InstituicaoCreateDTO createDTO) {
+        Instituicao instituicao = new Instituicao();
+        instituicao.setTipo_Instituicao(createDTO.getTipo_Instituicao());
+        instituicao.setNome_Instituicao(createDTO.getNome_Instituicao());
+        instituicao.setCNPJ_Filial(createDTO.getCNPJ_Filial());
+        instituicao.setData_Cadastro(new Date());
+        instituicao.setFlg_Inativo(false);
+        
+        Instituicao savedInstituicao = instituicaoRepository.save(instituicao);
+        return instituicaoModelMapper.toDTO(savedInstituicao);
+    }
+
+    @Override
     public InstituicaoDTO updateInstituicao(int id, InstituicaoDTO instituicaoDTO) {
         Instituicao existingInstituicao = instituicaoRepository.findById(id);
         if (existingInstituicao == null) {
@@ -53,7 +68,28 @@ public class InstituicaoService implements IInstituicaoService {
         existingInstituicao.setTipo_Instituicao(instituicaoDTO.getTipo_Instituicao());
         existingInstituicao.setNome_Instituicao(instituicaoDTO.getNome_Instituicao());
         existingInstituicao.setCNPJ_Filial(instituicaoDTO.getCNPJ_Filial());
-        existingInstituicao.setFlg_Inativo(instituicaoDTO.getFlg_Inativo());
+        
+        Instituicao updatedInstituicao = instituicaoRepository.save(existingInstituicao);
+        return instituicaoModelMapper.toDTO(updatedInstituicao);
+    }
+
+    @Override
+    public InstituicaoDTO updateInstituicaoFromDTO(int id, InstituicaoUpdateDTO updateDTO) {
+        Instituicao existingInstituicao = instituicaoRepository.findById(id);
+        if (existingInstituicao == null) {
+            return null;
+        }
+        
+        // Atualizar apenas os campos fornecidos
+        if (updateDTO.getTipo_Instituicao() != null) {
+            existingInstituicao.setTipo_Instituicao(updateDTO.getTipo_Instituicao());
+        }
+        if (updateDTO.getNome_Instituicao() != null) {
+            existingInstituicao.setNome_Instituicao(updateDTO.getNome_Instituicao());
+        }
+        if (updateDTO.getCNPJ_Filial() != null) {
+            existingInstituicao.setCNPJ_Filial(updateDTO.getCNPJ_Filial());
+        }
         
         Instituicao updatedInstituicao = instituicaoRepository.save(existingInstituicao);
         return instituicaoModelMapper.toDTO(updatedInstituicao);

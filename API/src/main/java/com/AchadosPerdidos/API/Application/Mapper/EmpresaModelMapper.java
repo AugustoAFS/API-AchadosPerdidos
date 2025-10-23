@@ -1,7 +1,7 @@
 package com.AchadosPerdidos.API.Application.Mapper;
 
-import com.AchadosPerdidos.API.Application.DTOs.EmpresaDTO;
-import com.AchadosPerdidos.API.Application.DTOs.EmpresaListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Empresa.EmpresaDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Empresa.EmpresaListDTO;
 import com.AchadosPerdidos.API.Domain.Entity.Empresa;
 import org.springframework.stereotype.Component;
 
@@ -19,12 +19,11 @@ public class EmpresaModelMapper {
         EmpresaDTO dto = new EmpresaDTO();
         dto.setId_Empresa(empresa.getId_Empresa());
         dto.setNome_Empresa(empresa.getNome_Empresa());
-        dto.setCNPJ_Matriz(empresa.getCNPJ_Matriz());
-        dto.setPais_Sede(empresa.getPais_Sede());
-        dto.setWebsite(empresa.getWebsite());
-        dto.setContato_Principal(empresa.getContato_Principal());
+        dto.setCNPJ_Empresa(empresa.getCNPJ_Matriz());
+        dto.setEndereco_Empresa(empresa.getPais_Sede()); // Mapeando Pais_Sede para Endereco_Empresa
+        dto.setTelefone_Empresa(empresa.getContato_Principal()); // Mapeando Contato_Principal para Telefone_Empresa
+        dto.setEmail_Empresa(empresa.getWebsite()); // Mapeando Website para Email_Empresa
         dto.setFlg_Ativo(empresa.getFlg_Ativo());
-        dto.setData_Cadastro(empresa.getData_Cadastro());
         
         return dto;
     }
@@ -37,12 +36,11 @@ public class EmpresaModelMapper {
         Empresa empresa = new Empresa();
         empresa.setId_Empresa(dto.getId_Empresa());
         empresa.setNome_Empresa(dto.getNome_Empresa());
-        empresa.setCNPJ_Matriz(dto.getCNPJ_Matriz());
-        empresa.setPais_Sede(dto.getPais_Sede());
-        empresa.setWebsite(dto.getWebsite());
-        empresa.setContato_Principal(dto.getContato_Principal());
+        empresa.setCNPJ_Matriz(dto.getCNPJ_Empresa());
+        empresa.setPais_Sede(dto.getEndereco_Empresa()); // Mapeando Endereco_Empresa para Pais_Sede
+        empresa.setContato_Principal(dto.getTelefone_Empresa()); // Mapeando Telefone_Empresa para Contato_Principal
+        empresa.setWebsite(dto.getEmail_Empresa()); // Mapeando Email_Empresa para Website
         empresa.setFlg_Ativo(dto.getFlg_Ativo());
-        empresa.setData_Cadastro(dto.getData_Cadastro());
         
         return empresa;
     }

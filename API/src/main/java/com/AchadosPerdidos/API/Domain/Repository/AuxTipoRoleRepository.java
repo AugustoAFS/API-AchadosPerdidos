@@ -2,7 +2,7 @@ package com.AchadosPerdidos.API.Domain.Repository;
 
 import com.AchadosPerdidos.API.Domain.Entity.Aux_Tipo_Role;
 import com.AchadosPerdidos.API.Domain.Repository.Interfaces.IAuxTipoRoleRepository;
-import com.AchadosPerdidos.API.Infrastruture.Mysql.AuxTipoRoleQueries;
+import com.AchadosPerdidos.API.Infrastruture.DataBase.AuxTipoRoleQueries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

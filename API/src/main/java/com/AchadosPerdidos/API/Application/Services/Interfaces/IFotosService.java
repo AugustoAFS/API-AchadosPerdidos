@@ -1,7 +1,7 @@
 package com.AchadosPerdidos.API.Application.Services.Interfaces;
 
-import com.AchadosPerdidos.API.Application.DTOs.FotosDTO;
-import com.AchadosPerdidos.API.Application.DTOs.FotosListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Fotos.FotosDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Fotos.FotosListDTO;
 
 public interface IFotosService {
     FotosListDTO getAllFotos();

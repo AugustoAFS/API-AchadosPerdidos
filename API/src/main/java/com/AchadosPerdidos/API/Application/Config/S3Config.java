@@ -9,7 +9,6 @@ import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 
-import java.net.URI;
 
 /**
  * Configuração do AWS S3 para upload e download de arquivos
@@ -41,12 +40,16 @@ public class S3Config {
         // Criar credenciais AWS com Access Key e Secret Key
         AwsBasicCredentials awsCredentials = AwsBasicCredentials.create(accessKey, secretKey);
         
-        // Configurar o cliente S3 usando a sintaxe mais simples
-        S3Client client = S3Client.builder()
+        // Configurar o cliente S3 com suporte a endpoint customizado
+        var builder = S3Client.builder()
                 .credentialsProvider(StaticCredentialsProvider.create(awsCredentials))
-                .region(Region.of(region))
-                .build();
-
-        return client;
+                .region(Region.of(region));
+        
+        // Se endpoint customizado for fornecido, usar ele (útil para MinIO, LocalStack, etc.)
+        if (endpointUrl != null && !endpointUrl.trim().isEmpty()) {
+            builder.endpointOverride(java.net.URI.create(endpointUrl));
+        }
+        
+        return builder.build();
     }
 } 

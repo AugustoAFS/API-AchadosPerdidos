@@ -4,6 +4,7 @@ import com.AchadosPerdidos.API.Application.Services.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -27,6 +28,9 @@ public class SecurityConfig {
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
 
+    @Autowired
+    private Environment environment;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -35,11 +39,8 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(authz -> authz
                 .requestMatchers(
-                    "/api/auth/**",
-                    "/api/public/**",
-                    "/api/google-auth/**",
-                    "/api/usuarios/debug/**",
                     "/api/usuarios/criar",
+                    "/api/google-auth/**",
                     "/swagger-ui/**",
                     "/v3/api-docs/**",
                     "/swagger-ui.html",
@@ -47,8 +48,6 @@ public class SecurityConfig {
                     "/actuator/**",
                     "/error"
                 ).permitAll()
-                .requestMatchers("/api/chat/**").authenticated()
-                .requestMatchers("/api/usuarios/**").authenticated()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(
@@ -63,14 +62,25 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         
-        configuration.setAllowedOriginPatterns(Arrays.asList("*"));
+        String[] activeProfiles = environment.getActiveProfiles();
+        if (activeProfiles.length > 0) {
+            String profile = activeProfiles[0];
+            switch (profile.toLowerCase()) {
+                case "dev" -> configuration.setAllowedOriginPatterns(Arrays.asList("*"));
+                case "prd", "prod", "production" -> configuration.setAllowedOriginPatterns(Arrays.asList(
+                    "https://achadosperdidos.com",
+                    "https://www.achadosperdidos.com",
+                    "https://api.achadosperdidos.com"
+                ));
+                default -> configuration.setAllowedOriginPatterns(Arrays.asList("*"));
+            }
+        } else {
+            configuration.setAllowedOriginPatterns(Arrays.asList("*"));
+        }
         
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
-        
         configuration.setAllowedHeaders(Arrays.asList("*"));
-        
         configuration.setAllowCredentials(true);
-        
         configuration.setExposedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With"));
         
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

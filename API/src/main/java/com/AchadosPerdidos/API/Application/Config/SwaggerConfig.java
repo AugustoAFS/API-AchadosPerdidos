@@ -8,20 +8,28 @@ import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 
 import java.util.List;
 
 @Configuration
 public class SwaggerConfig {
 
-    @Value("${swagger.server.url:http://localhost:8080}")
-    private String ServerUrl;
+    @Value("${swagger.server.url:}")
+    private String serverUrl;
 
-    @Value("${swagger.server.description:Servidor de desenvolvimento}")
-    private String ServerDescription;
+    @Value("${swagger.server.description:}")
+    private String serverDescription;
+
+    private final Environment environment;
+
+    public SwaggerConfig(Environment environment) {
+        this.environment = environment;
+    }
 
     @Bean
     public OpenAPI customOpenAPI() {
@@ -29,12 +37,54 @@ public class SwaggerConfig {
                 .info(apiInfo())
                 .servers(List.of(
                         new Server()
-                                .url(ServerUrl)
-                                .description(ServerDescription)
+                                .url(getServerUrl())
+                                .description(getServerDescription())
                 ))
                 .addSecurityItem(new SecurityRequirement().addList("Bearer Authentication"))
                 .components(new Components()
                         .addSecuritySchemes("Bearer Authentication", createAPIKeyScheme()));
+    }
+
+    @Bean
+    public GroupedOpenApi publicApi() {
+        return GroupedOpenApi.builder()
+                .group("public")
+                .pathsToMatch("/api/**")
+                .build();
+    }
+
+    private String getServerUrl() {
+        if (serverUrl != null && !serverUrl.isEmpty()) {
+            return serverUrl;
+        }
+        
+        String[] activeProfiles = environment.getActiveProfiles();
+        if (activeProfiles.length > 0) {
+            String profile = activeProfiles[0];
+            return switch (profile.toLowerCase()) {
+                case "dev" -> "http://localhost:8080";
+                case "prd", "prod", "production" -> "https://api.achadosperdidos.com.br";
+                default -> "http://localhost:8080";
+            };
+        }
+        return "http://localhost:8080";
+    }
+
+    private String getServerDescription() {
+        if (serverDescription != null && !serverDescription.isEmpty()) {
+            return serverDescription;
+        }
+        
+        String[] activeProfiles = environment.getActiveProfiles();
+        if (activeProfiles.length > 0) {
+            String profile = activeProfiles[0];
+            return switch (profile.toLowerCase()) {
+                case "dev" -> "Servidor de Desenvolvimento";
+                case "prd", "prod", "production" -> "Servidor de Produção";
+                default -> "Servidor de Desenvolvimento";
+            };
+        }
+        return "Servidor de Desenvolvimento";
     }
 
     private Info apiInfo() {
@@ -44,8 +94,8 @@ public class SwaggerConfig {
                 .version("1.0.0")
                 .contact(new Contact()
                         .name("Equipe de Desenvolvimento")
-                        .email("contato@achadosperdidos.com")
-                        .url("https://achadosperdidos.com"))
+                        .email("contato@achadosperdidos.com.br")
+                        .url("https://api.achadosperdidos.com.br"))
                 .license(new License()
                         .name("MIT License")
                         .url("https://opensource.org/licenses/MIT"));

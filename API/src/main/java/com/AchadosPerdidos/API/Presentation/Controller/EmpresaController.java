@@ -1,7 +1,7 @@
 package com.AchadosPerdidos.API.Presentation.Controller;
 
-import com.AchadosPerdidos.API.Application.DTOs.EmpresaDTO;
-import com.AchadosPerdidos.API.Application.DTOs.EmpresaListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Empresa.EmpresaDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Empresa.EmpresaListDTO;
 import com.AchadosPerdidos.API.Application.Services.Interfaces.IEmpresaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
