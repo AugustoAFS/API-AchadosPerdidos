@@ -1,7 +1,8 @@
 package com.AchadosPerdidos.API.Application.Services;
 
-import com.AchadosPerdidos.API.Application.DTOs.GoogleUserDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Auth.GoogleUserDTO;
 import com.AchadosPerdidos.API.Application.Services.Interfaces.IGoogleAuthService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -66,7 +67,7 @@ public class GoogleAuthService implements IGoogleAuthService {
 
             return getUserInfo(accessToken);
             
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             _log.error("Erro ao processar autenticação do Google", e);
             throw new RuntimeException("Erro ao processar autenticação do Google", e);
         }
@@ -108,7 +109,7 @@ public class GoogleAuthService implements IGoogleAuthService {
             _log.info("Token de acesso obtido com sucesso");
             return accessToken;
             
-        } catch (Exception e) {
+        } catch (JsonProcessingException | RuntimeException e) {
             _log.error("Erro ao obter token de acesso", e);
             throw new RuntimeException("Erro ao obter token de acesso", e);
         }
@@ -140,20 +141,17 @@ public class GoogleAuthService implements IGoogleAuthService {
                 throw new RuntimeException("Não foi possível obter informações do usuário");
             }
             
-            GoogleUserDTO user = new GoogleUserDTO(
-                userInfoJson.get("id").asText(),
-                userInfoJson.get("email").asText(),
-                userInfoJson.get("name").asText(),
-                userInfoJson.get("picture").asText(),
-                userInfoJson.get("given_name").asText(),
-                userInfoJson.get("family_name").asText(),
-                userInfoJson.get("verified_email").asBoolean()
-            );
+            GoogleUserDTO user = new GoogleUserDTO();
+            user.setId(userInfoJson.get("id").asText());
+            user.setEmail(userInfoJson.get("email").asText());
+            user.setName(userInfoJson.get("name").asText());
+            user.setPicture(userInfoJson.get("picture").asText());
+            user.setVerified_email(userInfoJson.get("verified_email").asBoolean());
 
-            _log.info("Informações do usuário obtidas com sucesso: {}", user.email());
+            _log.info("Informações do usuário obtidas com sucesso: {}", user.getEmail());
             return user;
             
-        } catch (Exception e) {
+        } catch (JsonProcessingException | RuntimeException e) {
             _log.error("Erro ao obter informações do usuário", e);
             throw new RuntimeException("Erro ao obter informações do usuário", e);
         }

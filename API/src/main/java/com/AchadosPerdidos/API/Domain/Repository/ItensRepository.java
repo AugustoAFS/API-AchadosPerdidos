@@ -2,7 +2,7 @@ package com.AchadosPerdidos.API.Domain.Repository;
 
 import com.AchadosPerdidos.API.Domain.Entity.Itens;
 import com.AchadosPerdidos.API.Domain.Repository.Interfaces.IItensRepository;
-import com.AchadosPerdidos.API.Infrastruture.Mysql.ItensQueries;
+import com.AchadosPerdidos.API.Infrastruture.DataBase.ItensQueries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

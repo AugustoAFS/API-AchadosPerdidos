@@ -1,9 +1,8 @@
 package com.AchadosPerdidos.API.Presentation.Controller;
 
-import com.AchadosPerdidos.API.Application.DTOs.AuthResponseDTO;
-import com.AchadosPerdidos.API.Application.DTOs.GoogleUserDTO;
-import com.AchadosPerdidos.API.Application.DTOs.UsuariosDTO;
-import com.AchadosPerdidos.API.Application.DTOs.UsuariosListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Auth.AuthResponseDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Auth.GoogleUserDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Usuario.UsuariosDTO;
 import com.AchadosPerdidos.API.Application.Services.Interfaces.IGoogleAuthService;
 import com.AchadosPerdidos.API.Application.Services.Interfaces.IJwtTokenService;
 import com.AchadosPerdidos.API.Application.Services.Interfaces.IUsuariosService;
@@ -81,13 +80,13 @@ public class GoogleAuthController {
             }
             
             // Buscar usuário no banco de dados pelo email
-            logger.info("Buscando usuário no MySQL com email: {}", googleUser.email());
-            UsuariosDTO usuario = usuariosService.getUsuarioByEmail(googleUser.email());
+            logger.info("Buscando usuário no MySQL com email: {}", googleUser.getEmail());
+            UsuariosDTO usuario = usuariosService.getUsuarioByEmail(googleUser.getEmail());
             if (usuario == null) {
-                logger.warn("Usuário não encontrado no banco de dados MySQL: {}", googleUser.email());
+                logger.warn("Usuário não encontrado no banco de dados MySQL: {}", googleUser.getEmail());
                 logger.info("Verifique se o usuário existe na tabela 'Usuarios' do MySQL");
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body("Usuário não encontrado no banco de dados. Email: " + googleUser.email());
+                    .body("Usuário não encontrado no banco de dados. Email: " + googleUser.getEmail());
             }
             
             // Verificar se o usuário está ativo
@@ -103,21 +102,25 @@ public class GoogleAuthController {
             String token = jwtTokenService.generateToken(
                 usuario.getEmail_Usuario(),
                 usuario.getNome_Usuario(),
-                "User", // TODO: Implementar busca de role do usuário
+                "User",
                 String.valueOf(usuario.getId_Usuario())
             );
             
             logger.info("Token JWT gerado com sucesso para o usuário: {}", usuario.getEmail_Usuario());
             
             // Criar resposta com token e informações do usuário
-            AuthResponseDTO.UserInfoDTO userInfo = new AuthResponseDTO.UserInfoDTO(
-                usuario.getId_Usuario(),
-                usuario.getNome_Usuario(),
-                usuario.getEmail_Usuario(),
-                "User" // TODO: Implementar busca de role do usuário
-            );
+            AuthResponseDTO.UserInfoDTO userInfo = new AuthResponseDTO.UserInfoDTO();
+            userInfo.setId(usuario.getId_Usuario());
+            userInfo.setNome(usuario.getNome_Usuario());
+            userInfo.setEmail(usuario.getEmail_Usuario());
+            userInfo.setRole("User");
+            userInfo.setCampus("");
             
-            AuthResponseDTO response = new AuthResponseDTO(token, userInfo);
+            AuthResponseDTO response = new AuthResponseDTO();
+            response.setToken(token);
+            response.setTokenType("Bearer");
+            response.setExpiresIn(3600); // 1 hora
+            response.setUser(userInfo);
             
             return ResponseEntity.ok(response);
             

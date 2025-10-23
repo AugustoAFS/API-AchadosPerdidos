@@ -1,7 +1,7 @@
 package com.AchadosPerdidos.API.Presentation.Controller;
 
-import com.AchadosPerdidos.API.Application.DTOs.AuxStatusItemDTO;
-import com.AchadosPerdidos.API.Application.DTOs.AuxStatusItemListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Auxiliares.AuxStatusItemDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Auxiliares.AuxStatusItemListDTO;
 import com.AchadosPerdidos.API.Application.Services.Interfaces.IAuxStatusItemService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,7 +43,7 @@ public class AuxStatusItemController {
             {
                 throw new IllegalArgumentException("Corpo da requisição ausente");
             }
-            if (dto.Descricao_Status_Item() == null || dto.Descricao_Status_Item().trim().isEmpty()) {
+            if (dto.getDescricao_Status_Item() == null || dto.getDescricao_Status_Item().trim().isEmpty()) {
                 throw new IllegalArgumentException("Descricao_Status_Item é obrigatória");
             }
             AuxStatusItemListDTO auxStatusItemCriado = auxStatusItemService.criarAuxStatusItem(dto);

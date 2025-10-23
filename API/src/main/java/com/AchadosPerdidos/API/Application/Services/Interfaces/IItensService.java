@@ -1,7 +1,9 @@
 package com.AchadosPerdidos.API.Application.Services.Interfaces;
 
-import com.AchadosPerdidos.API.Application.DTOs.ItensDTO;
-import com.AchadosPerdidos.API.Application.DTOs.ItensListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Itens.ItensDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Itens.ItensListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Itens.ItensCreateDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Itens.ItensUpdateDTO;
 
 public interface IItensService {
     ItensListDTO getAllItens();
@@ -16,4 +18,6 @@ public interface IItensService {
     ItensListDTO getItensByLocal(int localId);
     ItensListDTO getItensByEmpresa(int empresaId);
     ItensListDTO searchItens(String searchTerm);
+    ItensDTO createItemFromDTO(ItensCreateDTO createDTO);
+    ItensDTO updateItemFromDTO(int id, ItensUpdateDTO updateDTO);
 }

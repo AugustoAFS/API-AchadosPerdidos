@@ -1,7 +1,7 @@
 package com.AchadosPerdidos.API.Application.Mapper;
 
-import com.AchadosPerdidos.API.Application.DTOs.ReivindicacoesDTO;
-import com.AchadosPerdidos.API.Application.DTOs.ReivindicacoesListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Reivindicacoes.ReivindicacoesDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Reivindicacoes.ReivindicacoesListDTO;
 import com.AchadosPerdidos.API.Domain.Entity.Reivindicacoes;
 import org.springframework.stereotype.Component;
 
@@ -19,10 +19,11 @@ public class ReivindicacoesModelMapper {
         ReivindicacoesDTO dto = new ReivindicacoesDTO();
         dto.setId_Reivindicacao(reivindicacoes.getId_Reivindicacao());
         dto.setId_Item(reivindicacoes.getId_Item());
-        dto.setId_Usuario_Post(reivindicacoes.getId_Usuario_Post());
-        dto.setId_Usuario_Proprietario(reivindicacoes.getId_Usuario_Proprietario());
+        dto.setId_Usuario(reivindicacoes.getId_Usuario_Post());
         dto.setData_Reivindicacao(reivindicacoes.getData_Reivindicacao());
-        dto.setObservacao(reivindicacoes.getObservacao());
+        dto.setStatus_Reivindicacao("PENDENTE"); // Status padrão
+        dto.setDescricao_Reivindicacao(reivindicacoes.getObservacao());
+        dto.setComprovantes(""); // Campo vazio por padrão
         
         return dto;
     }
@@ -35,10 +36,9 @@ public class ReivindicacoesModelMapper {
         Reivindicacoes reivindicacoes = new Reivindicacoes();
         reivindicacoes.setId_Reivindicacao(dto.getId_Reivindicacao());
         reivindicacoes.setId_Item(dto.getId_Item());
-        reivindicacoes.setId_Usuario_Post(dto.getId_Usuario_Post());
-        reivindicacoes.setId_Usuario_Proprietario(dto.getId_Usuario_Proprietario());
+        reivindicacoes.setId_Usuario_Post(dto.getId_Usuario());
         reivindicacoes.setData_Reivindicacao(dto.getData_Reivindicacao());
-        reivindicacoes.setObservacao(dto.getObservacao());
+        reivindicacoes.setObservacao(dto.getDescricao_Reivindicacao());
         
         return reivindicacoes;
     }

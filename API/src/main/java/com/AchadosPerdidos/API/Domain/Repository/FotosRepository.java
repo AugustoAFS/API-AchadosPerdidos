@@ -2,7 +2,7 @@ package com.AchadosPerdidos.API.Domain.Repository;
 
 import com.AchadosPerdidos.API.Domain.Entity.Fotos;
 import com.AchadosPerdidos.API.Domain.Repository.Interfaces.IFotosRepository;
-import com.AchadosPerdidos.API.Infrastruture.Mysql.FotosQueries;
+import com.AchadosPerdidos.API.Infrastruture.DataBase.FotosQueries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

@@ -1,7 +1,9 @@
 package com.AchadosPerdidos.API.Application.Services.Interfaces;
 
-import com.AchadosPerdidos.API.Application.DTOs.CampusDTO;
-import com.AchadosPerdidos.API.Application.DTOs.CampusListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Campus.CampusDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Campus.CampusListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Campus.CampusCreateDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Campus.CampusUpdateDTO;
 
 public interface ICampusService {
     CampusListDTO getAllCampus();
@@ -11,4 +13,6 @@ public interface ICampusService {
     boolean deleteCampus(int id);
     CampusListDTO getActiveCampus();
     CampusListDTO getCampusByInstitution(int institutionId);
+    CampusDTO createCampusFromDTO(CampusCreateDTO createDTO);
+    CampusDTO updateCampusFromDTO(int id, CampusUpdateDTO updateDTO);
 }

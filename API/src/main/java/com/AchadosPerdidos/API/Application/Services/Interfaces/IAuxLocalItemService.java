@@ -1,7 +1,7 @@
 package com.AchadosPerdidos.API.Application.Services.Interfaces;
 
-import com.AchadosPerdidos.API.Application.DTOs.AuxLocalItemDTO;
-import com.AchadosPerdidos.API.Application.DTOs.AuxLocalItemListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Auxiliares.AuxLocalItemDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Auxiliares.AuxLocalItemListDTO;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.AchadosPerdidos.API.Application.Services;
 
-import com.AchadosPerdidos.API.Application.DTOs.AuxTipoRoleDTO;
-import com.AchadosPerdidos.API.Application.DTOs.AuxTipoRoleListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Auxiliares.AuxTipoRoleDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Auxiliares.AuxTipoRoleListDTO;
 import com.AchadosPerdidos.API.Application.Mapper.AuxTipoRoleModelMapper;
 import com.AchadosPerdidos.API.Application.Services.Interfaces.IAuxTipoRoleService;
 import com.AchadosPerdidos.API.Domain.Entity.Aux_Tipo_Role;
@@ -51,7 +51,6 @@ public class AuxTipoRoleService implements IAuxTipoRoleService {
         }
         
         existingAuxTipoRole.setNome_Tipo_Role(auxTipoRoleDTO.getNome_Tipo_Role());
-        existingAuxTipoRole.setFlg_Inativo(auxTipoRoleDTO.getFlg_Inativo());
         
         Aux_Tipo_Role updatedAuxTipoRole = auxTipoRoleRepository.save(existingAuxTipoRole);
         return auxTipoRoleModelMapper.toDTO(updatedAuxTipoRole);

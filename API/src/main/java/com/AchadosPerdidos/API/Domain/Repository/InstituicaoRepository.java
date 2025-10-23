@@ -2,7 +2,7 @@ package com.AchadosPerdidos.API.Domain.Repository;
 
 import com.AchadosPerdidos.API.Domain.Entity.Instituicao;
 import com.AchadosPerdidos.API.Domain.Repository.Interfaces.IInstituicaoRepository;
-import com.AchadosPerdidos.API.Infrastruture.Mysql.InstituicaoQueries;
+import com.AchadosPerdidos.API.Infrastruture.DataBase.InstituicaoQueries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

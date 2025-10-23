@@ -1,7 +1,7 @@
 package com.AchadosPerdidos.API.Application.Services.Interfaces;
 
-import com.AchadosPerdidos.API.Application.DTOs.AuxTipoRoleDTO;
-import com.AchadosPerdidos.API.Application.DTOs.AuxTipoRoleListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Auxiliares.AuxTipoRoleDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Auxiliares.AuxTipoRoleListDTO;
 
 public interface IAuxTipoRoleService {
     AuxTipoRoleListDTO getAllAuxTipoRoles();

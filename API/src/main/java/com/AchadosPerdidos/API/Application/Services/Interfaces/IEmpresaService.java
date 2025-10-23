@@ -1,7 +1,7 @@
 package com.AchadosPerdidos.API.Application.Services.Interfaces;
 
-import com.AchadosPerdidos.API.Application.DTOs.EmpresaDTO;
-import com.AchadosPerdidos.API.Application.DTOs.EmpresaListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Empresa.EmpresaDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Empresa.EmpresaListDTO;
 
 public interface IEmpresaService {
     EmpresaListDTO getAllEmpresas();

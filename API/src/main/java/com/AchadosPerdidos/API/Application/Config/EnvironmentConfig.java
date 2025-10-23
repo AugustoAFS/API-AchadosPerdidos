@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import jakarta.annotation.PostConstruct;
-import java.io.File;
 
 @Configuration
 @PropertySource(value = "file:.env", ignoreResourceNotFound = true)
@@ -20,8 +19,6 @@ public class EnvironmentConfig {
         _log.info("Iniciando as variaveis de ambiente");
         
         try {
-            File envFile = new File("./.env");
-
             Dotenv dotenv = Dotenv.configure()
                     .directory("./")
                     .ignoreIfMalformed()
@@ -42,9 +39,9 @@ public class EnvironmentConfig {
                     skippedCount++;
                 }
             }
-            _log.info("Variáveis de ambiente carregadas com sucesso do arquivo .env");
+            _log.info("Variáveis de ambiente carregadas com sucesso do arquivo .env - Carregadas: {}, Ignoradas: {}", loadedCount, skippedCount);
 
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             _log.error("Erro ao carregar arquivo .env: {}", e.getMessage(), e);
         }
     }
