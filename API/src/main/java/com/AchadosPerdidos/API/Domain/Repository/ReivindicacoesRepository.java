@@ -2,7 +2,7 @@ package com.AchadosPerdidos.API.Domain.Repository;
 
 import com.AchadosPerdidos.API.Domain.Entity.Reivindicacoes;
 import com.AchadosPerdidos.API.Domain.Repository.Interfaces.IReivindicacoesRepository;
-import com.AchadosPerdidos.API.Infrastruture.Mysql.ReivindicacoesQueries;
+import com.AchadosPerdidos.API.Infrastruture.DataBase.ReivindicacoesQueries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

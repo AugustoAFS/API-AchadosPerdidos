@@ -1,7 +1,7 @@
 package com.AchadosPerdidos.API.Application.Services;
 
-import com.AchadosPerdidos.API.Application.DTOs.ReivindicacoesDTO;
-import com.AchadosPerdidos.API.Application.DTOs.ReivindicacoesListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Reivindicacoes.ReivindicacoesDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Reivindicacoes.ReivindicacoesListDTO;
 import com.AchadosPerdidos.API.Application.Mapper.ReivindicacoesModelMapper;
 import com.AchadosPerdidos.API.Application.Services.Interfaces.IReivindicacoesService;
 import com.AchadosPerdidos.API.Domain.Entity.Reivindicacoes;
@@ -50,9 +50,8 @@ public class ReivindicacoesService implements IReivindicacoesService {
         }
         
         existingReivindicacoes.setId_Item(reivindicacoesDTO.getId_Item());
-        existingReivindicacoes.setId_Usuario_Post(reivindicacoesDTO.getId_Usuario_Post());
-        existingReivindicacoes.setId_Usuario_Proprietario(reivindicacoesDTO.getId_Usuario_Proprietario());
-        existingReivindicacoes.setObservacao(reivindicacoesDTO.getObservacao());
+        existingReivindicacoes.setId_Usuario_Post(reivindicacoesDTO.getId_Usuario());
+        existingReivindicacoes.setObservacao(reivindicacoesDTO.getDescricao_Reivindicacao());
         
         Reivindicacoes updatedReivindicacoes = reivindicacoesRepository.save(existingReivindicacoes);
         return reivindicacoesModelMapper.toDTO(updatedReivindicacoes);

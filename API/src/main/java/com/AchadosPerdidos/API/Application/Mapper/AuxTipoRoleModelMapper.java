@@ -1,7 +1,7 @@
 package com.AchadosPerdidos.API.Application.Mapper;
 
-import com.AchadosPerdidos.API.Application.DTOs.AuxTipoRoleDTO;
-import com.AchadosPerdidos.API.Application.DTOs.AuxTipoRoleListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Auxiliares.AuxTipoRoleDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Auxiliares.AuxTipoRoleListDTO;
 import com.AchadosPerdidos.API.Domain.Entity.Aux_Tipo_Role;
 import org.springframework.stereotype.Component;
 
@@ -19,8 +19,6 @@ public class AuxTipoRoleModelMapper {
         AuxTipoRoleDTO dto = new AuxTipoRoleDTO();
         dto.setId_Tipo_Role(auxTipoRole.getId_Tipo_Role());
         dto.setNome_Tipo_Role(auxTipoRole.getNome_Tipo_Role());
-        dto.setData_Cadastro(auxTipoRole.getData_Cadastro());
-        dto.setFlg_Inativo(auxTipoRole.getFlg_Inativo());
         
         return dto;
     }
@@ -33,8 +31,6 @@ public class AuxTipoRoleModelMapper {
         Aux_Tipo_Role auxTipoRole = new Aux_Tipo_Role();
         auxTipoRole.setId_Tipo_Role(dto.getId_Tipo_Role());
         auxTipoRole.setNome_Tipo_Role(dto.getNome_Tipo_Role());
-        auxTipoRole.setData_Cadastro(dto.getData_Cadastro());
-        auxTipoRole.setFlg_Inativo(dto.getFlg_Inativo());
         
         return auxTipoRole;
     }
@@ -49,7 +45,7 @@ public class AuxTipoRoleModelMapper {
                 .collect(Collectors.toList());
         
         AuxTipoRoleListDTO listDTO = new AuxTipoRoleListDTO();
-        listDTO.setAuxTipoRoles(dtoList);
+        listDTO.setTiposRole(dtoList);
         listDTO.setTotalCount(dtoList.size());
         
         return listDTO;

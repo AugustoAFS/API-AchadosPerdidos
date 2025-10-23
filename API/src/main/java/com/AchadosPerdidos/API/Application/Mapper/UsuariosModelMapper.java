@@ -1,7 +1,7 @@
 package com.AchadosPerdidos.API.Application.Mapper;
 
-import com.AchadosPerdidos.API.Application.DTOs.UsuariosDTO;
-import com.AchadosPerdidos.API.Application.DTOs.UsuariosListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Usuario.UsuariosDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Usuario.UsuariosListDTO;
 import com.AchadosPerdidos.API.Domain.Entity.Usuarios;
 import org.springframework.stereotype.Component;
 

@@ -2,7 +2,7 @@ package com.AchadosPerdidos.API.Domain.Repository;
 
 import com.AchadosPerdidos.API.Domain.Entity.Campus;
 import com.AchadosPerdidos.API.Domain.Repository.Interfaces.ICampusRepository;
-import com.AchadosPerdidos.API.Infrastruture.Mysql.CampusQueries;
+import com.AchadosPerdidos.API.Infrastruture.DataBase.CampusQueries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

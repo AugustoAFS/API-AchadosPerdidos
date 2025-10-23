@@ -1,7 +1,7 @@
 package com.AchadosPerdidos.API.Presentation.Controller;
 
-import com.AchadosPerdidos.API.Application.DTOs.AuxTipoRoleDTO;
-import com.AchadosPerdidos.API.Application.DTOs.AuxTipoRoleListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Auxiliares.AuxTipoRoleDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Auxiliares.AuxTipoRoleListDTO;
 import com.AchadosPerdidos.API.Application.Services.Interfaces.IAuxTipoRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

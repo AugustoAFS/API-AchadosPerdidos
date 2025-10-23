@@ -1,7 +1,9 @@
 package com.AchadosPerdidos.API.Application.Services.Interfaces;
 
-import com.AchadosPerdidos.API.Application.DTOs.UsuariosDTO;
-import com.AchadosPerdidos.API.Application.DTOs.UsuariosListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Usuario.UsuariosDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Usuario.UsuariosListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Usuario.UsuariosCreateDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Usuario.UsuariosUpdateDTO;
 
 public interface IUsuariosService {
     UsuariosListDTO getAllUsuarios();
@@ -15,4 +17,6 @@ public interface IUsuariosService {
     UsuariosListDTO getUsuariosByInstitution(int instituicaoId);
     UsuariosListDTO getUsuariosByCampus(int campusId);
     UsuariosDTO authenticateUsuario(String email, String senha);
+    UsuariosDTO createUsuarioFromDTO(UsuariosCreateDTO createDTO);
+    UsuariosDTO updateUsuarioFromDTO(int id, UsuariosUpdateDTO updateDTO);
 }

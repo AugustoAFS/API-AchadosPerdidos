@@ -1,7 +1,7 @@
 package com.AchadosPerdidos.API.Application.Services;
 
-import com.AchadosPerdidos.API.Application.DTOs.AuxStatusItemDTO;
-import com.AchadosPerdidos.API.Application.DTOs.AuxStatusItemListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Auxiliares.AuxStatusItemDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Auxiliares.AuxStatusItemListDTO;
 import com.AchadosPerdidos.API.Application.Mapper.AuxStatusItemModelMapper;
 import com.AchadosPerdidos.API.Application.Services.Interfaces.IAuxStatusItemService;
 import com.AchadosPerdidos.API.Domain.Entity.Aux_Status_Item;

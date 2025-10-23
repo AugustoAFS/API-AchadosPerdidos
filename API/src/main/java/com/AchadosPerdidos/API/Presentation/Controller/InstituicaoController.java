@@ -1,7 +1,9 @@
 package com.AchadosPerdidos.API.Presentation.Controller;
 
-import com.AchadosPerdidos.API.Application.DTOs.InstituicaoDTO;
-import com.AchadosPerdidos.API.Application.DTOs.InstituicaoListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Instituicao.InstituicaoDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Instituicao.InstituicaoListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Instituicao.InstituicaoCreateDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Instituicao.InstituicaoUpdateDTO;
 import com.AchadosPerdidos.API.Application.Services.Interfaces.IInstituicaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,14 +35,14 @@ public class InstituicaoController {
     }
 
     @PostMapping
-    public ResponseEntity<InstituicaoDTO> createInstituicao(@RequestBody InstituicaoDTO instituicaoDTO) {
-        InstituicaoDTO createdInstituicao = instituicaoService.createInstituicao(instituicaoDTO);
+    public ResponseEntity<InstituicaoDTO> createInstituicao(@RequestBody InstituicaoCreateDTO instituicaoCreateDTO) {
+        InstituicaoDTO createdInstituicao = instituicaoService.createInstituicaoFromDTO(instituicaoCreateDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdInstituicao);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<InstituicaoDTO> updateInstituicao(@PathVariable int id, @RequestBody InstituicaoDTO instituicaoDTO) {
-        InstituicaoDTO updatedInstituicao = instituicaoService.updateInstituicao(id, instituicaoDTO);
+    public ResponseEntity<InstituicaoDTO> updateInstituicao(@PathVariable int id, @RequestBody InstituicaoUpdateDTO instituicaoUpdateDTO) {
+        InstituicaoDTO updatedInstituicao = instituicaoService.updateInstituicaoFromDTO(id, instituicaoUpdateDTO);
         if (updatedInstituicao != null) {
             return ResponseEntity.ok(updatedInstituicao);
         } else {

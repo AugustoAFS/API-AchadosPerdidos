@@ -1,7 +1,7 @@
 package com.AchadosPerdidos.API.Application.Services;
 
-import com.AchadosPerdidos.API.Application.DTOs.FotosDTO;
-import com.AchadosPerdidos.API.Application.DTOs.FotosListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Fotos.FotosDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Fotos.FotosListDTO;
 import com.AchadosPerdidos.API.Application.Mapper.FotosModelMapper;
 import com.AchadosPerdidos.API.Application.Services.Interfaces.IFotosService;
 import com.AchadosPerdidos.API.Domain.Entity.Fotos;
@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -56,19 +57,26 @@ public class FotosService implements IFotosService {
             return null;
         }
         
-        existingFotos.setUsuario_Id(fotosDTO.getUsuario_Id());
-        existingFotos.setItem_Id(fotosDTO.getItem_Id());
-        existingFotos.setProvedor_Armazenamento(fotosDTO.getProvedor_Armazenamento() != null ? Provedor_Armazenamento.valueOf(fotosDTO.getProvedor_Armazenamento()) : null);
-        existingFotos.setNome_Bucket(fotosDTO.getNome_Bucket());
-        existingFotos.setChave_Objeto(fotosDTO.getChave_Objeto());
-        existingFotos.setUrl_Arquivo(fotosDTO.getUrl_Arquivo());
-        existingFotos.setNome_Original(fotosDTO.getNome_Original());
-        existingFotos.setLargura(fotosDTO.getLargura());
-        existingFotos.setAltura(fotosDTO.getAltura());
-        existingFotos.setPerfil_Usuario(fotosDTO.getPerfil_Usuario());
-        existingFotos.setFoto_Item(fotosDTO.getFoto_Item());
-        existingFotos.setFlg_Inativo(fotosDTO.getFlg_Inativo());
-        existingFotos.setData_Exclusao(fotosDTO.getData_Exclusao());
+        // Mapeamento correto dos campos do FotosDTO para a entidade Fotos
+        if (fotosDTO.getId_Usuario() != null) {
+            existingFotos.setUsuario_Id(fotosDTO.getId_Usuario());
+        }
+        if (fotosDTO.getId_Item() != null) {
+            existingFotos.setItem_Id(fotosDTO.getId_Item());
+        }
+        if (fotosDTO.getURL_Foto() != null) {
+            existingFotos.setUrl_Arquivo(fotosDTO.getURL_Foto());
+        }
+        if (fotosDTO.getNome_Arquivo() != null) {
+            existingFotos.setNome_Original(fotosDTO.getNome_Arquivo());
+        }
+        if (fotosDTO.getTamanho_Arquivo() != null) {
+            existingFotos.setTamanho_Bytes(fotosDTO.getTamanho_Arquivo());
+        }
+        if (fotosDTO.getTipo_MIME() != null) {
+            // O tipo MIME pode ser usado para validação, mas não há campo específico na entidade
+            // Pode ser armazenado em um campo de metadados se necessário
+        }
         existingFotos.setData_Atualizacao(new Date());
         
         Fotos updatedFotos = fotosRepository.save(existingFotos);
@@ -149,8 +157,15 @@ public class FotosService implements IFotosService {
             }
 
             // Fazer upload para S3
+            byte[] fileBytes;
+            try {
+                fileBytes = file.getBytes();
+            } catch (IOException e) {
+                throw new RuntimeException("Erro ao ler arquivo: " + e.getMessage(), e);
+            }
+            
             S3Service.S3UploadResult uploadResult = s3Service.uploadPhoto(
-                file.getBytes(),
+                fileBytes,
                 file.getOriginalFilename(),
                 contentType,
                 userId,
@@ -177,7 +192,7 @@ public class FotosService implements IFotosService {
             Fotos savedFotos = fotosRepository.save(fotos);
             return fotosModelMapper.toDTO(savedFotos);
 
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             throw new RuntimeException("Erro ao fazer upload da foto: " + e.getMessage(), e);
         }
     }
@@ -220,7 +235,7 @@ public class FotosService implements IFotosService {
             // Deletar do banco de dados
             return fotosRepository.deleteById(fotoId);
 
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             throw new RuntimeException("Erro ao deletar foto: " + e.getMessage(), e);
         }
     }

@@ -1,7 +1,7 @@
 package com.AchadosPerdidos.API.Application.Services;
 
-import com.AchadosPerdidos.API.Application.DTOs.EmpresaDTO;
-import com.AchadosPerdidos.API.Application.DTOs.EmpresaListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Empresa.EmpresaDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Empresa.EmpresaListDTO;
 import com.AchadosPerdidos.API.Application.Mapper.EmpresaModelMapper;
 import com.AchadosPerdidos.API.Application.Services.Interfaces.IEmpresaService;
 import com.AchadosPerdidos.API.Domain.Entity.Empresa;
@@ -51,10 +51,10 @@ public class EmpresaService implements IEmpresaService {
         }
         
         existingEmpresa.setNome_Empresa(empresaDTO.getNome_Empresa());
-        existingEmpresa.setCNPJ_Matriz(empresaDTO.getCNPJ_Matriz());
-        existingEmpresa.setPais_Sede(empresaDTO.getPais_Sede());
-        existingEmpresa.setWebsite(empresaDTO.getWebsite());
-        existingEmpresa.setContato_Principal(empresaDTO.getContato_Principal());
+        existingEmpresa.setCNPJ_Matriz(empresaDTO.getCNPJ_Empresa());
+        existingEmpresa.setPais_Sede(empresaDTO.getEndereco_Empresa()); // Mapeando Endereco_Empresa para Pais_Sede
+        existingEmpresa.setWebsite(empresaDTO.getEmail_Empresa()); // Mapeando Email_Empresa para Website
+        existingEmpresa.setContato_Principal(empresaDTO.getTelefone_Empresa()); // Mapeando Telefone_Empresa para Contato_Principal
         existingEmpresa.setFlg_Ativo(empresaDTO.getFlg_Ativo());
         
         Empresa updatedEmpresa = empresaRepository.save(existingEmpresa);

@@ -1,7 +1,7 @@
 package com.AchadosPerdidos.API.Presentation.Controller;
 
-import com.AchadosPerdidos.API.Application.DTOs.FotosDTO;
-import com.AchadosPerdidos.API.Application.DTOs.FotosListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Fotos.FotosDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Fotos.FotosListDTO;
 import com.AchadosPerdidos.API.Application.Services.Interfaces.IFotosService;
 import com.AchadosPerdidos.API.Application.Services.FotosService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -159,8 +159,8 @@ public class FotosController {
             // Buscar informações da foto para definir o content-type
             FotosDTO foto = fotosService.getFotoById(id);
             String contentType = "image/jpeg"; // Default
-            if (foto != null && foto.getNome_Original() != null) {
-                String fileName = foto.getNome_Original().toLowerCase();
+            if (foto != null && foto.getNome_Arquivo() != null) {
+                String fileName = foto.getNome_Arquivo().toLowerCase();
                 if (fileName.endsWith(".png")) {
                     contentType = "image/png";
                 } else if (fileName.endsWith(".gif")) {
@@ -173,7 +173,7 @@ public class FotosController {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.parseMediaType(contentType));
             headers.setContentLength(photoData.length);
-            headers.set("Content-Disposition", "inline; filename=\"" + (foto != null ? foto.getNome_Original() : "photo") + "\"");
+            headers.set("Content-Disposition", "inline; filename=\"" + (foto != null ? foto.getNome_Arquivo() : "photo") + "\"");
 
             return ResponseEntity.ok()
                     .headers(headers)

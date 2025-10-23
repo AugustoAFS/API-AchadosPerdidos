@@ -1,7 +1,7 @@
 package com.AchadosPerdidos.API.Presentation.Controller;
 
-import com.AchadosPerdidos.API.Application.DTOs.AuxLocalItemDTO;
-import com.AchadosPerdidos.API.Application.DTOs.AuxLocalItemListDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Auxiliares.AuxLocalItemDTO;
+import com.AchadosPerdidos.API.Application.DTOs.Auxiliares.AuxLocalItemListDTO;
 import com.AchadosPerdidos.API.Application.Services.Interfaces.IAuxLocalItemService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +30,8 @@ public class AuxLocalItemController {
             } else {
                 return ResponseEntity.notFound().build();
             }
+        } catch (RuntimeException e) {
+            throw e;
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(null);
@@ -43,17 +45,20 @@ public class AuxLocalItemController {
             {
                 throw new IllegalArgumentException("Corpo da requisição ausente");
             }
-            if (dto.Nome_Local_Item() == null || dto.Nome_Local_Item().trim().isEmpty()) {
+            if (dto.getNome_Local_Item() == null || dto.getNome_Local_Item().trim().isEmpty()) {
                 throw new IllegalArgumentException("Nome_Local_Item é obrigatório");
             }
-            if (dto.Descricao_Local_Item() == null || dto.Descricao_Local_Item().trim().isEmpty()) {
+            if (dto.getDescricao_Local_Item() == null || dto.getDescricao_Local_Item().trim().isEmpty()) {
                 throw new IllegalArgumentException("Descricao_Local_Item é obrigatória");
             }
             AuxLocalItemListDTO auxLocalItemCriado = auxLocalItemService.criarAuxLocalItem(dto);
             return ResponseEntity.status(HttpStatus.CREATED).body(auxLocalItemCriado);
         }
-        catch (Exception e)
-        {
+        catch (IllegalArgumentException e) {
+            throw e;
+        } catch (RuntimeException e) {
+            throw e;
+        } catch (Exception e) {
             throw new RuntimeException(String.format("Erro ao criar local de item: %s", e.getMessage()));
         }
     }
@@ -72,8 +77,11 @@ public class AuxLocalItemController {
             }
             return ResponseEntity.notFound().build();
         }
-        catch (Exception e)
-        {
+        catch (IllegalArgumentException e) {
+            throw e;
+        } catch (RuntimeException e) {
+            throw e;
+        } catch (Exception e) {
             throw new RuntimeException(String.format("Erro ao buscar local de item por ID: %s", e.getMessage()));
         }
     }
@@ -84,9 +92,9 @@ public class AuxLocalItemController {
         {
             List<AuxLocalItemListDTO> auxLocalItems = auxLocalItemService.listarTodos();
             return ResponseEntity.ok(auxLocalItems);
-        } 
-        catch (Exception e) 
-        {
+        } catch (RuntimeException e) {
+            throw e;
+        } catch (Exception e) {
             throw new RuntimeException(String.format("Erro ao listar locais de item: %s", e.getMessage()));
         }
     }
@@ -120,6 +128,8 @@ public class AuxLocalItemController {
                 return ResponseEntity.ok().build();
             }
             return ResponseEntity.notFound().build();
+        } catch (RuntimeException e) {
+            throw e;
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
