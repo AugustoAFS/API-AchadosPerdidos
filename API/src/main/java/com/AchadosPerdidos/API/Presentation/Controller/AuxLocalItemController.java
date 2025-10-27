@@ -20,26 +20,9 @@ public class AuxLocalItemController {
     public AuxLocalItemController(IAuxLocalItemService auxLocalItemService) {
         this.auxLocalItemService = auxLocalItemService;
     }
-    
-    @GetMapping("/buscar-nome/{nome}")
-    public ResponseEntity<AuxLocalItemListDTO> buscarPorNome(@PathVariable String nome) {
-        try {
-            AuxLocalItemListDTO auxLocalItem = auxLocalItemService.buscarPorNome(nome);
-            if (auxLocalItem != null) {
-                return ResponseEntity.ok(auxLocalItem);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        } catch (RuntimeException e) {
-            throw e;
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(null);
-        }
-    }
 
     @PostMapping("/criar")  
-    public ResponseEntity<AuxLocalItemListDTO> criarAuxLocalItem(@Valid @RequestBody AuxLocalItemDTO dto) {
+    public ResponseEntity<AuxLocalItemListDTO> CriarAuxLocalItem(@Valid @RequestBody AuxLocalItemDTO dto) {
         try {
             if (dto == null)
             {
@@ -51,7 +34,7 @@ public class AuxLocalItemController {
             if (dto.getDescricao_Local_Item() == null || dto.getDescricao_Local_Item().trim().isEmpty()) {
                 throw new IllegalArgumentException("Descricao_Local_Item é obrigatória");
             }
-            AuxLocalItemListDTO auxLocalItemCriado = auxLocalItemService.criarAuxLocalItem(dto);
+            AuxLocalItemListDTO auxLocalItemCriado = auxLocalItemService.CriarAuxLocalItem(dto);
             return ResponseEntity.status(HttpStatus.CREATED).body(auxLocalItemCriado);
         }
         catch (IllegalArgumentException e) {
@@ -64,14 +47,14 @@ public class AuxLocalItemController {
     }
     
     @GetMapping("/listar/{id}")
-    public ResponseEntity<AuxLocalItemListDTO> buscarAuxLocalItem(@PathVariable int id) {
+    public ResponseEntity<AuxLocalItemListDTO> ListarPorIdAuxLocalItem(@PathVariable int id) {
         try
         {
             if (id <= 0) {
                 throw new IllegalArgumentException("Id do Local de Item não encontrado");
             }
 
-            AuxLocalItemListDTO auxLocalItem = auxLocalItemService.buscarPorId(id);
+            AuxLocalItemListDTO auxLocalItem = auxLocalItemService.BuscarPorId(id);
             if (auxLocalItem != null) {
                 return ResponseEntity.ok(auxLocalItem);
             }
@@ -90,7 +73,7 @@ public class AuxLocalItemController {
     public ResponseEntity<List<AuxLocalItemListDTO>> listarTodos() {
         try 
         {
-            List<AuxLocalItemListDTO> auxLocalItems = auxLocalItemService.listarTodos();
+            List<AuxLocalItemListDTO> auxLocalItems = auxLocalItemService.ListarTodos();
             return ResponseEntity.ok(auxLocalItems);
         } catch (RuntimeException e) {
             throw e;
@@ -100,14 +83,14 @@ public class AuxLocalItemController {
     }
     
     @PutMapping("/atualizar/{id}")
-    public ResponseEntity<AuxLocalItemListDTO> atualizarAuxLocalItem(@PathVariable int id, @Valid @RequestBody AuxLocalItemDTO dto) {
+    public ResponseEntity<AuxLocalItemListDTO> AtualizarAuxLocalItem(@PathVariable int id, @Valid @RequestBody AuxLocalItemDTO dto) {
         if (id <= 0) 
         {
             throw new IllegalArgumentException("Id do Local de Item não encontrado");
         }
             try 
             {
-                AuxLocalItemListDTO auxLocalItemAtualizado = auxLocalItemService.atualizarAuxLocalItem(id, dto);
+                AuxLocalItemListDTO auxLocalItemAtualizado = auxLocalItemService.AtualizarAuxLocalItem(id, dto);
                 return ResponseEntity.ok(auxLocalItemAtualizado);
             } 
             catch (IllegalArgumentException e)
@@ -117,13 +100,13 @@ public class AuxLocalItemController {
     }
 
     @DeleteMapping("/deletar/{id}")
-    public ResponseEntity<Void> deletarAuxLocalItem(@PathVariable int id) {
+    public ResponseEntity<Void> DeletarAuxLocalItem(@PathVariable int id) {
         if (id <= 0) {
             return ResponseEntity.badRequest().build();
         }
         
         try {
-            boolean sucesso = auxLocalItemService.deletarAuxLocalItem(id);
+            boolean sucesso = auxLocalItemService.DeletarAuxLocalItem(id);
             if (sucesso) {
                 return ResponseEntity.ok().build();
             }
