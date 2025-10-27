@@ -16,10 +16,6 @@ import org.springframework.context.annotation.Profile;
 import java.time.Duration;
 import java.util.List;
 
-/**
- * Configuração de cache para a aplicação.
- * Suporta Caffeine Cache para produção e ConcurrentMap para desenvolvimento/teste.
- */
 @Configuration
 @EnableCaching
 public class CacheConfig {
