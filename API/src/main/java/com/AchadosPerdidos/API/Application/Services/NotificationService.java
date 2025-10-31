@@ -48,15 +48,15 @@ public class NotificationService implements INotificationService {
                 // Cria mensagem de notificação
                 String message = String.format(
                     "Novo item encontrado: %s. Local: %s. Encontrado por: %s",
-                    item.getNome_Item(),
+                    item.getNome(),
                     "Campus", // TODO: Implementar busca do local
-                    finder.getNome_Usuario()
+                    finder.getNomeCompleto()
                 );
                 
                 // Envia notificação para todos os usuários ativos
                 sendNotificationToAllUsers(message, "ITEM_ENCONTRADO");
                 
-                System.out.println("Notificação enviada: Item encontrado - " + item.getNome_Item());
+                System.out.println("Notificação enviada: Item encontrado - " + item.getNome());
             }
         } catch (Exception e) {
             System.err.println("Erro ao enviar notificação de item encontrado: " + e.getMessage());
@@ -81,8 +81,8 @@ public class NotificationService implements INotificationService {
                 // Notifica o proprietário
                 String ownerMessage = String.format(
                     "Seu item '%s' foi reivindicado por %s. Verifique a reivindicação.",
-                    item.getNome_Item(),
-                    claimant.getNome_Usuario()
+                    item.getNome(),
+                    claimant.getNomeCompleto()
                 );
                 
                 sendNotificationToUser(ownerId, ownerMessage, "ITEM_REIVINDICADO");
@@ -90,12 +90,12 @@ public class NotificationService implements INotificationService {
                 // Notifica o reivindicador
                 String claimantMessage = String.format(
                     "Sua reivindicação do item '%s' foi registrada. Aguarde confirmação do proprietário.",
-                    item.getNome_Item()
+                    item.getNome()
                 );
                 
                 sendNotificationToUser(claimantId, claimantMessage, "REIVINDICACAO_REGISTRADA");
                 
-                System.out.println("Notificações enviadas: Item reivindicado - " + item.getNome_Item());
+                System.out.println("Notificações enviadas: Item reivindicado - " + item.getNome());
             }
         } catch (Exception e) {
             System.err.println("Erro ao enviar notificação de item reivindicado: " + e.getMessage());
@@ -120,7 +120,7 @@ public class NotificationService implements INotificationService {
                 // Notifica o proprietário
                 String ownerMessage = String.format(
                     "Seu item '%s' foi devolvido com sucesso! Obrigado por usar o sistema de achados e perdidos.",
-                    item.getNome_Item()
+                    item.getNome()
                 );
                 
                 sendNotificationToUser(ownerId, ownerMessage, "ITEM_DEVOLVIDO");
@@ -128,12 +128,12 @@ public class NotificationService implements INotificationService {
                 // Notifica quem encontrou
                 String finderMessage = String.format(
                     "O item '%s' foi devolvido ao proprietário. Obrigado pela colaboração!",
-                    item.getNome_Item()
+                    item.getNome()
                 );
                 
                 sendNotificationToUser(finderId, finderMessage, "ITEM_DEVOLVIDO");
                 
-                System.out.println("Notificações enviadas: Item devolvido - " + item.getNome_Item());
+                System.out.println("Notificações enviadas: Item devolvido - " + item.getNome());
             }
         } catch (Exception e) {
             System.err.println("Erro ao enviar notificação de item devolvido: " + e.getMessage());
@@ -155,12 +155,12 @@ public class NotificationService implements INotificationService {
                 String message = String.format(
                     "ATENÇÃO: O item '%s' está próximo do prazo de doação (30 dias). " +
                     "Se não for reivindicado em breve, será destinado à doação.",
-                    item.getNome_Item()
+                    item.getNome()
                 );
                 
-                sendNotificationToUser(item.getUsuario_Id(), message, "PRAZO_DOACAO");
+                sendNotificationToUser(item.getUsuarioRelatorId(), message, "PRAZO_DOACAO");
                 
-                System.out.println("Notificação de prazo enviada para item: " + item.getNome_Item());
+                System.out.println("Notificação de prazo enviada para item: " + item.getNome());
             }
         } catch (Exception e) {
             System.err.println("Erro ao enviar notificações de prazo: " + e.getMessage());
@@ -179,18 +179,18 @@ public class NotificationService implements INotificationService {
             
             for (com.AchadosPerdidos.API.Domain.Entity.Itens item : expiredItems) {
                 // Atualiza status para "Doado"
-                itensService.markItemAsDonated(item.getId_Item());
+                itensService.markItemAsDonated(item.getId());
                 
                 // Notifica o usuário que encontrou
                 String message = String.format(
                     "O item '%s' foi destinado à doação após 30 dias sem reivindicação, " +
                     "conforme política do sistema.",
-                    item.getNome_Item()
+                    item.getNome()
                 );
                 
-                sendNotificationToUser(item.getUsuario_Id(), message, "ITEM_DOADO");
+                sendNotificationToUser(item.getUsuarioRelatorId(), message, "ITEM_DOADO");
                 
-                System.out.println("Item marcado como doado: " + item.getNome_Item());
+                System.out.println("Item marcado como doado: " + item.getNome());
             }
         } catch (Exception e) {
             System.err.println("Erro ao marcar itens como doados: " + e.getMessage());

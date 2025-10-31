@@ -11,12 +11,14 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Instituicao {
-    private int Id_Instituicao;
-    private String Tipo_Instituicao;
-    private String Nome_Instituicao;
-    private String CNPJ_Filial;
-    private Boolean Flg_Inativo;
-    private Date Data_Cadastro;
+    private Integer id;
+    private String nome;
+    private String codigo;
+    private String tipo;
+    private String cnpj;
+    private Date dtaCriacao;
+    private Boolean flgInativo;
+    private Date dtaRemocao;
 }
 
 

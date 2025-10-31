@@ -12,34 +12,30 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @Schema(description = "DTO para atualização de usuário")
 public class UsuariosUpdateDTO {
-    
-    @Schema(description = "Nome completo do usuário", example = "João Silva")
-    private String Nome_Usuario;
-    
-    @Schema(description = "CPF do usuário", example = "12345678901")
-    private String CPF_Usuario;
-    
-    @Schema(description = "Email do usuário", example = "joao@ifpr.edu.br")
-    private String Email_Usuario;
-    
-    @Schema(description = "Senha do usuário", example = "senha123")
-    private String Senha_Usuario;
-    
-    @Schema(description = "Matrícula do usuário", example = "2024001")
-    private String Matricula_Usuario;
-    
-    @Schema(description = "Telefone do usuário", example = "(41) 99999-9999")
-    private String Telefone_Usuario;
-    
-    @Schema(description = "Tipo de role do usuário (1=Admin, 2=Professor, 3=Aluno, 4=Instituição Pública, 5=Instituição Privada)", example = "2")
-    private int Tipo_Role_Id;
-    
-    @Schema(description = "ID do campus do usuário", example = "1")
-    private Integer Id_Campus;
-    
-    @Schema(description = "ID da empresa (opcional)", example = "null")
-    private Integer Id_Empresa;
-    
-    @Schema(description = "Status ativo/inativo do usuário", example = "false")
-    private Boolean Flg_Inativo;
+    @Schema(description = "Nome completo", example = "João Silva")
+    private String nomeCompleto;
+
+    @Schema(description = "CPF", example = "12345678901")
+    private String cpf;
+
+    @Schema(description = "Email", example = "joao@ifpr.edu.br")
+    private String email;
+
+    @Schema(description = "Senha em texto plano (será hasheada)", example = "senha123")
+    private String senha;
+
+    @Schema(description = "Matrícula", example = "2024001")
+    private String matricula;
+
+    @Schema(description = "Telefone", example = "(41) 99999-9999")
+    private String numeroTelefone;
+
+    @Schema(description = "Empresa ID", example = "10")
+    private Integer empresaId;
+
+    @Schema(description = "Endereço ID", example = "5")
+    private Integer enderecoId;
+
+    @Schema(description = "Flag de inativação", example = "false")
+    private Boolean flgInativo;
 }

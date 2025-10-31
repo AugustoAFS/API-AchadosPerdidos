@@ -28,7 +28,11 @@ public class CacheConfig {
         "usuarios", 
         "campus",
         "statusItems",
-        "localItems"
+        "localItems",
+        "cidades",
+        "estados",
+        "enderecos",
+        "roles"
     );
 
     @Value("${cache.enabled:true}")

@@ -12,22 +12,15 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @Schema(description = "DTO para atualização de campus")
 public class CampusUpdateDTO {
-    
     @Schema(description = "Nome do campus", example = "IFPR - Sede Curitiba")
-    private String Nome_Campus;
-    
-    @Schema(description = "Cidade onde o campus está localizado", example = "Curitiba")
-    private String Cidade;
-    
-    @Schema(description = "Estado onde o campus está localizado", example = "Paraná")
-    private String Estado;
-    
-    @Schema(description = "Endereço completo do campus", example = "Rua João Negrão, 1285 - Rebouças")
-    private String Endereco;
-    
-    @Schema(description = "CEP do campus", example = "80230-150")
-    private String CEP;
-    
-    @Schema(description = "Status ativo/inativo do campus", example = "true")
-    private Boolean Flg_Ativo;
+    private String nome;
+
+    @Schema(description = "ID da instituição", example = "1")
+    private Integer instituicaoId;
+
+    @Schema(description = "ID do endereço", example = "10")
+    private Integer enderecoId;
+
+    @Schema(description = "Flag de inativação", example = "false")
+    private Boolean flgInativo;
 }

@@ -11,17 +11,13 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Campus {
-    private int Id_Campus;
-    private Integer Id_Instituicao;
-    private String Nome_Campus;
-    private String Cidade;
-    private String Estado;
-    private String Endereco;
-    private String CEP;
-    private Double Latitude;
-    private Double Longitude;
-    private Boolean Flg_Ativo;
-    private Date Data_Cadastro;
+    private Integer id;
+    private String nome;
+    private Integer instituicaoId;
+    private Integer enderecoId;
+    private Date dtaCriacao;
+    private Boolean flgInativo;
+    private Date dtaRemocao;
 }
 
 

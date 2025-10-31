@@ -11,10 +11,12 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Reivindicacoes {
-    private int Id_Reivindicacao;
-    private int Id_Item;
-    private Integer Id_Usuario_Post;
-    private Integer Id_Usuario_Proprietario;
-    private Date Data_Reivindicacao;
-    private String Observacao;
+    private Integer id;
+    private String detalhesReivindicacao;
+    private Integer itemId;
+    private Integer usuarioReivindicadorId;
+    private Integer usuarioAchouId;
+    private Date dtaCriacao;
+    private Boolean flgInativo;
+    private Date dtaRemocao;
 }

@@ -13,12 +13,15 @@ import lombok.AllArgsConstructor;
 @Schema(description = "DTO para criação de instituição")
 public class InstituicaoCreateDTO {
     
-    @Schema(description = "Tipo da instituição (PUBLICA ou PRIVADA)", example = "PUBLICA", required = true)
-    private String Tipo_Instituicao;
-    
     @Schema(description = "Nome da instituição", example = "Instituto Federal do Paraná", required = true)
-    private String Nome_Instituicao;
+    private String nome;
     
-    @Schema(description = "CNPJ da instituição", example = "12345678000195", required = true)
-    private String CNPJ_Filial;
+    @Schema(description = "Código da instituição", example = "IFPR", required = true)
+    private String codigo;
+    
+    @Schema(description = "Tipo da instituição (PUBLICA ou PRIVADA)", example = "PUBLICA", required = true)
+    private String tipo;
+    
+    @Schema(description = "CNPJ da instituição", example = "12345678000195")
+    private String cnpj;
 }

@@ -12,25 +12,30 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @Schema(description = "DTO completo de foto")
 public class FotosDTO {
-    
-    @Schema(description = "ID único da foto", example = "1", accessMode = Schema.AccessMode.READ_ONLY)
-    private int Id_Foto;
-    
-    @Schema(description = "Nome do arquivo da foto", example = "foto_item_123.jpg")
-    private String Nome_Arquivo;
-    
-    @Schema(description = "URL da foto no S3", example = "https://bucket.s3.amazonaws.com/fotos/foto_item_123.jpg")
-    private String URL_Foto;
-    
-    @Schema(description = "Tamanho do arquivo em bytes", example = "1024000")
-    private Long Tamanho_Arquivo;
-    
-    @Schema(description = "Tipo MIME da foto", example = "image/jpeg")
-    private String Tipo_MIME;
-    
-    @Schema(description = "ID do item relacionado", example = "1")
-    private Integer Id_Item;
-    
-    @Schema(description = "ID do usuário que fez upload", example = "1", accessMode = Schema.AccessMode.READ_ONLY)
-    private Integer Id_Usuario;
+    @Schema(description = "ID da foto", example = "1", accessMode = Schema.AccessMode.READ_ONLY)
+    private Integer id;
+
+    @Schema(description = "URL da foto", example = "https://bucket.s3.amazonaws.com/fotos/foto_item_123.jpg")
+    private String url;
+
+    @Schema(description = "Provedor de armazenamento", example = "S3")
+    private String provedorArmazenamento;
+
+    @Schema(description = "Chave de armazenamento", example = "fotos/foto_item_123.jpg")
+    private String chaveArmazenamento;
+
+    @Schema(description = "Nome original do arquivo", example = "foto_item_123.jpg")
+    private String nomeArquivoOriginal;
+
+    @Schema(description = "Tamanho em bytes", example = "1024000")
+    private Long tamanhoArquivoBytes;
+
+    @Schema(description = "Data de criação", example = "2024-01-01T00:00:00")
+    private java.util.Date dtaCriacao;
+
+    @Schema(description = "Flag de inativação", example = "false")
+    private Boolean flgInativo;
+
+    @Schema(description = "Data de remoção lógica", example = "2024-02-01T00:00:00")
+    private java.util.Date dtaRemocao;
 }

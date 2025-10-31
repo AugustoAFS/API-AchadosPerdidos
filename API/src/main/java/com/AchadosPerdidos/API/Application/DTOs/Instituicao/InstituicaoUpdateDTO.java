@@ -13,12 +13,18 @@ import lombok.AllArgsConstructor;
 @Schema(description = "DTO para atualização de instituição")
 public class InstituicaoUpdateDTO {
     
-    @Schema(description = "Tipo da instituição (PUBLICA ou PRIVADA)", example = "PUBLICA")
-    private String Tipo_Instituicao;
-    
     @Schema(description = "Nome da instituição", example = "Instituto Federal do Paraná")
-    private String Nome_Instituicao;
+    private String nome;
+    
+    @Schema(description = "Código da instituição", example = "IFPR")
+    private String codigo;
+    
+    @Schema(description = "Tipo da instituição (PUBLICA ou PRIVADA)", example = "PUBLICA")
+    private String tipo;
     
     @Schema(description = "CNPJ da instituição", example = "12345678000195")
-    private String CNPJ_Filial;
+    private String cnpj;
+    
+    @Schema(description = "Flag indicando se a instituição está inativa", example = "false")
+    private Boolean flgInativo;
 }

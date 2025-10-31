@@ -11,14 +11,14 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Empresa {
-    private int Id_Empresa;
-    private String Nome_Empresa;
-    private String CNPJ_Matriz;
-    private String Pais_Sede;
-    private String Website;
-    private String Contato_Principal;
-    private Boolean Flg_Ativo;
-    private Date Data_Cadastro;
+    private Integer id;
+    private String nome;
+    private String nomeFantasia;
+    private String cnpj;
+    private Integer enderecoId;
+    private Date dtaCriacao;
+    private Boolean flgInativo;
+    private Date dtaRemocao;
 }
 
 

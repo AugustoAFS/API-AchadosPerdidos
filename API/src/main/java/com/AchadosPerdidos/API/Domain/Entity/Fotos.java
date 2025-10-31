@@ -12,22 +12,13 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Fotos {
-    private int Id_Foto;
-    private Integer Usuario_Id;
-    private Integer Item_Id;
-    private Provedor_Armazenamento Provedor_Armazenamento;
-    private String Nome_Bucket;
-    private String Chave_Objeto;
-    private String Chave_Armazenamento;
-    private String Url_Arquivo;
-    private String Nome_Original;
-    private Long Tamanho_Bytes;
-    private Integer Largura;
-    private Integer Altura;
-    private Boolean Perfil_Usuario;
-    private Boolean Foto_Item;
-    private Boolean Flg_Inativo;
-    private Date Data_Envio;
-    private Date Data_Exclusao;
-    private Date Data_Atualizacao;
+    private Integer id;
+    private String url;
+    private Provedor_Armazenamento provedorArmazenamento;
+    private String chaveArmazenamento;
+    private String nomeArquivoOriginal;
+    private Long tamanhoArquivoBytes;
+    private Date dtaCriacao;
+    private Boolean flgInativo;
+    private Date dtaRemocao;
 }
